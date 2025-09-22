@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Menu, LogOut, User, Settings, Home, Target, Briefcase, TrendingUp } from "lucide-react";
+import { Menu, LogOut, User, Settings, Home, Target, Briefcase, TrendingUp, BarChart3, Crown } from "lucide-react";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 const Navigation = () => {
@@ -66,7 +66,9 @@ const Navigation = () => {
   const navItems = [
     { href: "/", label: "Accueil", icon: Home },
     { href: "/mission", label: "Mission", icon: Target },
-    { href: "/projects", label: "Projets", icon: Briefcase }
+    { href: "/projects", label: "Projets", icon: Briefcase },
+    { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
+    { href: "/premium", label: "Premium", icon: Crown }
   ];
 
   const isActive = (path: string) => {
