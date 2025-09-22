@@ -1,170 +1,162 @@
-import { useState, useEffect } from "react";
-import { SubscriptionPlans } from "@/components/premium/SubscriptionPlans";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Zap, Star, Shield, TrendingUp, Users, MessageSquare } from "lucide-react";
+import { PremiumPlans } from "@/components/PremiumPlans";
 import { supabase } from "@/integrations/supabase/client";
+import { User } from "@supabase/supabase-js";
+import { Crown, TrendingUp, Users, BarChart3, Star, Zap } from "lucide-react";
 
-const Premium = () => {
-  const [user, setUser] = useState<any>(null);
-  const [userProfile, setUserProfile] = useState<any>(null);
+const premiumFeatures = [
+  {
+    icon: <TrendingUp className="h-8 w-8 text-accent" />,
+    title: "Visibilité Renforcée",
+    description: "Vos projets apparaissent en priorité dans les résultats de recherche des investisseurs."
+  },
+  {
+    icon: <Users className="h-8 w-8 text-accent" />,
+    title: "Accès Investisseurs Premium",
+    description: "Consultez les profils complets et les critères d'investissement détaillés."
+  },
+  {
+    icon: <BarChart3 className="h-8 w-8 text-accent" />,
+    title: "Analytics Avancées",
+    description: "Statistiques détaillées sur les vues, interactions et performance de vos projets."
+  },
+  {
+    icon: <Star className="h-8 w-8 text-accent" />,
+    title: "Matching IA Premium",
+    description: "Algorithme avancé pour identifier les investisseurs les plus compatibles."
+  },
+  {
+    icon: <Zap className="h-8 w-8 text-accent" />,
+    title: "Support Prioritaire",
+    description: "Assistance dédiée et réponse rapide à toutes vos questions."
+  },
+];
+
+export default function Premium() {
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
-      
-      if (user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
-          .single();
-        setUserProfile(profile);
-      }
       setLoading(false);
     };
 
     getUser();
   }, []);
 
-  const features = [
-    {
-      icon: Star,
-      title: "Matching IA Intelligent",
-      description: "Notre algorithme d'IA analyse vos préférences pour vous recommander les projets parfaits.",
-    },
-    {
-      icon: TrendingUp,
-      title: "Analytiques Avancées",
-      description: "Suivez vos performances d'investissement avec des rapports détaillés et des insights.",
-    },
-    {
-      icon: MessageSquare,
-      title: "Messagerie Illimitée",
-      description: "Échangez sans limite avec les porteurs de projets et autres investisseurs.",
-    },
-    {
-      icon: Shield,
-      title: "Vérification KYC",
-      description: "Profil vérifié avec badge premium pour plus de crédibilité.",
-    },
-    {
-      icon: Users,
-      title: "Réseau Premium",
-      description: "Accès exclusif à des événements et à un réseau d'investisseurs qualifiés.",
-    },
-    {
-      icon: Zap,
-      title: "Support Prioritaire",
-      description: "Assistance rapide et personnalisée pour tous vos besoins.",
-    },
-  ];
-
   if (loading) {
     return (
-      <div className="container mx-auto p-6">
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Chargement...</p>
         </div>
       </div>
     );
   }
 
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <Crown className="h-12 w-12 text-accent mx-auto mb-4" />
+            <CardTitle>Accès Premium Requis</CardTitle>
+            <CardDescription>
+              Vous devez être connecté pour accéder aux plans premium.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-      <div className="container mx-auto p-6 space-y-12">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-accent/5">
+      <div className="container mx-auto px-4 py-12">
         {/* Hero Section */}
-        <div className="text-center space-y-6 py-12">
-          <Badge className="mb-4" variant="secondary">
-            🚀 Passez au niveau supérieur
-          </Badge>
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
-            Débloquez tout le potentiel
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              d'Invest Connect
-            </span>
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center mb-6">
+            <Crown className="h-16 w-16 text-accent" />
+          </div>
+          <h1 className="text-4xl font-bold text-primary mb-4">
+            Débloquez votre Potentiel Premium
           </h1>
-          
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Accédez aux fonctionnalités avancées, au matching IA intelligent et 
-            à un réseau premium d'investisseurs et entrepreneurs.
+            Accédez aux fonctionnalités avancées d'Invest Connect et maximisez 
+            vos chances de trouver les investisseurs parfaits pour vos projets.
           </p>
         </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <Card key={index} className="border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-lg">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Icon className="h-5 w-5 text-primary" />
-                    </div>
-                    <CardTitle className="text-lg">{feature.title}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-sm leading-relaxed">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {premiumFeatures.map((feature, index) => (
+            <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="flex justify-center mb-4">
+                  {feature.icon}
+                </div>
+                <CardTitle className="text-lg">{feature.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">{feature.description}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
-        {/* Subscription Plans */}
-        <div className="space-y-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Choisissez votre plan
+        {/* Pricing Plans */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-primary mb-4">
+              Choisissez votre Plan Premium
             </h2>
-            <p className="text-muted-foreground">
-              Des solutions adaptées à tous vos besoins d'investissement
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Sélectionnez l'abonnement qui correspond le mieux à vos besoins 
+              et commencez à développer votre réseau d'investisseurs.
             </p>
           </div>
 
-          <SubscriptionPlans 
-            currentPlan="basic"
-            userEmail={user?.email}
-            userId={user?.id}
-          />
+          <div className="max-w-4xl mx-auto">
+            <PremiumPlans 
+              userEmail={user.email || ""} 
+              userId={user.id} 
+            />
+          </div>
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center py-12">
-          <Card className="max-w-2xl mx-auto border-primary/20 bg-gradient-to-r from-primary/5 to-accent/5">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-foreground mb-4">
-                Prêt à transformer vos investissements ?
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                Rejoignez plus de 1000+ investisseurs qui utilisent déjà nos outils avancés 
-                pour faire les meilleurs choix d'investissement.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Badge variant="secondary" className="text-sm px-4 py-2">
-                  ✅ Essai gratuit 14 jours
-                </Badge>
-                <Badge variant="secondary" className="text-sm px-4 py-2">
-                  ✅ Annulation à tout moment
-                </Badge>
-                <Badge variant="secondary" className="text-sm px-4 py-2">
-                  ✅ Support 24/7
-                </Badge>
+        {/* Success Stories */}
+        <Card className="bg-gradient-to-r from-accent/10 to-primary/10 border-accent/20">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl text-primary">
+              Rejoignez plus de 500+ entrepreneurs premium
+            </CardTitle>
+            <CardDescription className="text-lg">
+              Qui ont déjà levé plus de 2 milliards NGN grâce à Invest Connect Premium
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+              <div>
+                <div className="text-3xl font-bold text-accent mb-2">85%</div>
+                <p className="text-muted-foreground">de taux de matching réussi</p>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+              <div>
+                <div className="text-3xl font-bold text-accent mb-2">3x</div>
+                <p className="text-muted-foreground">plus de visibilité</p>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-accent mb-2">30j</div>
+                <p className="text-muted-foreground">temps moyen pour lever des fonds</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
-};
-
-export default Premium;
+}
