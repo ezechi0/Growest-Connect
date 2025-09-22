@@ -87,7 +87,7 @@ export default function Premium() {
             Débloquez votre Potentiel Premium
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Accédez aux fonctionnalités avancées d'Invest Connect et maximisez 
+            Accédez aux fonctionnalités avancées de Growest Connect et maximisez 
             vos chances de trouver les investisseurs parfaits pour vos projets.
           </p>
         </div>
@@ -136,7 +136,7 @@ export default function Premium() {
               Rejoignez plus de 500+ entrepreneurs premium
             </CardTitle>
             <CardDescription className="text-lg">
-              Qui ont déjà levé plus de 2 milliards NGN grâce à Invest Connect Premium
+              Qui ont déjà levé plus de 2 milliards NGN grâce à Growest Connect Premium
             </CardDescription>
           </CardHeader>
           <CardContent>

@@ -50,7 +50,7 @@ const Navigation = () => {
       } else {
         toast({
           title: "Déconnexion réussie",
-          description: "À bientôt sur Invest Connect !"
+          description: "À bientôt sur Growest Connect !"
         });
         navigate("/");
       }
@@ -90,7 +90,7 @@ const Navigation = () => {
               <TrendingUp className="w-5 h-5 text-primary-foreground" />
             </div>
             <span className="font-bold text-xl text-primary hidden sm:inline-block">
-              Invest Connect
+              Growest Connect
             </span>
           </Link>
 

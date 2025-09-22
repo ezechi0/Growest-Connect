@@ -58,7 +58,7 @@ const Auth = () => {
       } else {
         toast({
           title: "Connexion réussie",
-          description: "Bienvenue sur Invest Connect !"
+          description: "Bienvenue sur Growest Connect !"
         });
         navigate("/");
       }
@@ -152,7 +152,7 @@ const Auth = () => {
 
         {/* Logo/Title */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary">Invest Connect</h1>
+          <h1 className="text-3xl font-bold text-primary">Growest Connect</h1>
           <p className="text-muted-foreground mt-2">
             Connectez vos projets aux investisseurs
           </p>

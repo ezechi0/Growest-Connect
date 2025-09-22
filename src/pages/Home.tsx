@@ -34,7 +34,7 @@ const Home = () => {
       <section className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-foreground mb-4">
-            Pourquoi Choisir Invest Connect ?
+            Pourquoi Choisir Growest Connect ?
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Une solution complète pour connecter porteurs de projets et investisseurs
@@ -87,7 +87,7 @@ const Home = () => {
             Prêt à Transformer Votre Idée en Réalité ?
           </h2>
           <p className="text-primary-foreground/90 text-lg mb-8 max-w-2xl mx-auto">
-            Rejoignez des milliers d'entrepreneurs et d'investisseurs qui utilisent Invest Connect
+            Rejoignez des milliers d'entrepreneurs et d'investisseurs qui utilisent Growest Connect
           </p>
           <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
             <Link to="/auth">

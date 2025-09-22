@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Invest Connect Colors - Bleu marine professionnel */
+    /* Growest Connect Colors - Bleu marine professionnel */
     --background: 0 0% 100%;
     --foreground: 210 100% 10%;
 
@@ -60,7 +60,7 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Mode sombre Invest Connect */
+    /* Mode sombre Growest Connect */
     --background: 210 100% 8%;
     --foreground: 0 0% 95%;
 
