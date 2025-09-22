@@ -8,6 +8,7 @@ import { Chatbot } from "./components/Chatbot";
 import Home from "./pages/Home";
 import Mission from "./pages/Mission";
 import Projects from "./pages/Projects";
+import Tools from "./pages/Tools";
 import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import Premium from "./pages/Premium";
@@ -30,6 +31,7 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/mission" element={<Mission />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/tools" element={<Tools />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/premium" element={<Premium />} />
               <Route path="/auth" element={<Auth />} />

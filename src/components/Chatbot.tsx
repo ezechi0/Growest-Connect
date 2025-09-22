@@ -85,19 +85,19 @@ export const Chatbot = () => {
   return (
     <>
       {/* Chatbot Toggle Button */}
-      <Button
-        onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-gradient-primary hover:scale-110 transition-all duration-300 z-50 ${
-          isOpen ? 'hidden' : 'flex'
-        }`}
-        size="icon"
-      >
-        <MessageCircle className="h-6 w-6" />
-      </Button>
+      {!isOpen && (
+        <Button
+          onClick={() => setIsOpen(true)}
+          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-xl bg-gradient-primary hover:scale-110 transition-all duration-300 z-50 flex items-center justify-center animate-pulse"
+          size="icon"
+        >
+          <MessageCircle className="h-6 w-6 text-white" />
+        </Button>
+      )}
 
       {/* Chatbot Window */}
       {isOpen && (
-        <Card className="fixed bottom-6 right-6 w-96 h-[500px] shadow-2xl z-50 flex flex-col bg-gradient-to-br from-background/95 to-background/90 backdrop-blur-md border-primary/20">
+        <Card className="fixed bottom-6 right-6 w-96 h-[500px] shadow-2xl z-[100] flex flex-col bg-gradient-to-br from-background/95 to-background/90 backdrop-blur-md border-primary/20 animate-in slide-in-from-bottom-4 duration-300">
           <CardHeader className="pb-3 bg-gradient-primary text-white rounded-t-lg">
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2 text-lg">
