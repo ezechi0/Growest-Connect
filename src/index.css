@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Growest Connect Colors - Bleu marine professionnel */
+    /* Growest Connect Colors - Design moderne et attrayant */
     --background: 0 0% 100%;
     --foreground: 210 100% 10%;
 
@@ -18,19 +18,22 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 210 100% 10%;
 
-    /* Bleu marine principal */
-    --primary: 210 100% 20%;
+    /* Bleu moderne avec nuances */
+    --primary: 217 91% 60%;
+    --primary-light: 217 91% 70%;
+    --primary-dark: 217 91% 45%;
     --primary-foreground: 0 0% 100%;
 
-    /* Gris léger professionnel */
-    --secondary: 210 20% 95%;
+    /* Gris sophistiqué */
+    --secondary: 210 20% 98%;
     --secondary-foreground: 210 100% 20%;
 
     --muted: 210 20% 95%;
     --muted-foreground: 210 15% 50%;
 
-    /* Vert confiance pour les accents */
-    --accent: 140 50% 45%;
+    /* Vert émeraude moderne */
+    --accent: 160 84% 39%;
+    --accent-light: 160 84% 49%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -38,9 +41,25 @@ All colors MUST be HSL.
 
     --border: 210 20% 90%;
     --input: 210 20% 90%;
-    --ring: 210 100% 20%;
+    --ring: 217 91% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Gradients modernes */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-light)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(210 20% 99%) 100%);
+    
+    /* Ombres élégantes */
+    --shadow-soft: 0 4px 20px -4px hsl(var(--primary) / 0.1);
+    --shadow-medium: 0 10px 40px -10px hsl(var(--primary) / 0.15);
+    --shadow-strong: 0 20px 60px -10px hsl(var(--primary) / 0.2);
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
+    
+    /* Transitions fluides */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -60,28 +79,36 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Mode sombre Growest Connect */
-    --background: 210 100% 8%;
+    /* Mode sombre moderne Growest Connect */
+    --background: 210 100% 4%;
     --foreground: 0 0% 95%;
 
-    --card: 210 100% 10%;
+    --card: 210 50% 8%;
     --card-foreground: 0 0% 95%;
 
-    --popover: 210 100% 10%;
+    --popover: 210 50% 8%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 210 80% 60%;
-    --primary-foreground: 210 100% 8%;
+    --primary: 217 91% 70%;
+    --primary-light: 217 91% 80%;
+    --primary-dark: 217 91% 55%;
+    --primary-foreground: 210 100% 4%;
 
-    --secondary: 210 50% 15%;
+    --secondary: 210 50% 12%;
     --secondary-foreground: 0 0% 95%;
 
-    --muted: 210 50% 15%;
+    --muted: 210 50% 12%;
     --muted-foreground: 210 20% 65%;
 
-    /* Vert confiance plus clair en mode sombre */
-    --accent: 140 60% 55%;
-    --accent-foreground: 210 100% 8%;
+    --accent: 160 84% 49%;
+    --accent-light: 160 84% 59%;
+    --accent-foreground: 210 100% 4%;
+
+    /* Gradients sombre */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-light)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(210 50% 10%) 100%);
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
@@ -107,5 +134,40 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Classes utilitaires pour le design */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md bg-white/10 border border-white/20;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-lg;
+  }
+
+  .glow-effect {
+    @apply shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)];
+  }
+}
+
+@layer components {
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+  
+  .card-gradient {
+    background: var(--gradient-card);
+  }
+  
+  .primary-gradient {
+    background: var(--gradient-primary);
+  }
+  
+  .accent-gradient {
+    background: var(--gradient-accent);
   }
 }
