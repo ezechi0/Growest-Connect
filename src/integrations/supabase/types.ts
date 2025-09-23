@@ -204,63 +204,152 @@ export type Database = {
           },
         ]
       }
+      project_interests: {
+        Row: {
+          created_at: string | null
+          id: string
+          interest_level: string | null
+          investment_amount: number | null
+          investor_id: string
+          message: string | null
+          project_id: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          interest_level?: string | null
+          investment_amount?: number | null
+          investor_id: string
+          message?: string | null
+          project_id: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          interest_level?: string | null
+          investment_amount?: number | null
+          investor_id?: string
+          message?: string | null
+          project_id?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_interests_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       projects: {
         Row: {
+          admin_notes: string | null
+          approval_date: string | null
+          business_model: string | null
+          close_date: string | null
           created_at: string | null
           current_funding: number | null
           description: string
           documents: Json | null
           end_date: string | null
+          expected_roi: number | null
           funding_goal: number
           id: string
           images: Json | null
+          launch_date: string | null
           location: string
+          max_investment: number | null
+          min_investment: number | null
           owner_id: string
           pitch_deck_url: string | null
+          rejection_reason: string | null
+          revenue_model: string | null
+          risk_level: string | null
           sector: string
+          stage: string | null
           start_date: string | null
           status: string | null
+          submission_date: string | null
           tags: string[] | null
+          target_market: string | null
+          team_size: number | null
           title: string
           updated_at: string | null
           video_url: string | null
         }
         Insert: {
+          admin_notes?: string | null
+          approval_date?: string | null
+          business_model?: string | null
+          close_date?: string | null
           created_at?: string | null
           current_funding?: number | null
           description: string
           documents?: Json | null
           end_date?: string | null
+          expected_roi?: number | null
           funding_goal: number
           id?: string
           images?: Json | null
+          launch_date?: string | null
           location: string
+          max_investment?: number | null
+          min_investment?: number | null
           owner_id: string
           pitch_deck_url?: string | null
+          rejection_reason?: string | null
+          revenue_model?: string | null
+          risk_level?: string | null
           sector: string
+          stage?: string | null
           start_date?: string | null
           status?: string | null
+          submission_date?: string | null
           tags?: string[] | null
+          target_market?: string | null
+          team_size?: number | null
           title: string
           updated_at?: string | null
           video_url?: string | null
         }
         Update: {
+          admin_notes?: string | null
+          approval_date?: string | null
+          business_model?: string | null
+          close_date?: string | null
           created_at?: string | null
           current_funding?: number | null
           description?: string
           documents?: Json | null
           end_date?: string | null
+          expected_roi?: number | null
           funding_goal?: number
           id?: string
           images?: Json | null
+          launch_date?: string | null
           location?: string
+          max_investment?: number | null
+          min_investment?: number | null
           owner_id?: string
           pitch_deck_url?: string | null
+          rejection_reason?: string | null
+          revenue_model?: string | null
+          risk_level?: string | null
           sector?: string
+          stage?: string | null
           start_date?: string | null
           status?: string | null
+          submission_date?: string | null
           tags?: string[] | null
+          target_market?: string | null
+          team_size?: number | null
           title?: string
           updated_at?: string | null
           video_url?: string | null
@@ -382,6 +471,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_project_interest_stats: {
+        Args: { project_uuid: string }
+        Returns: {
+          avg_investment_amount: number
+          interest_breakdown: Json
+          total_interests: number
+          total_potential_investment: number
+        }[]
+      }
       get_project_stats: {
         Args: { project_uuid: string }
         Returns: {

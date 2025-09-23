@@ -16,6 +16,8 @@ import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import KycOnboarding from "./pages/KycOnboarding";
+import CreateProject from "./pages/CreateProject";
+import ProjectDetail from "./pages/ProjectDetail";
 import { AdminDashboard } from "./components/admin/AdminDashboard";
 
 const queryClient = new QueryClient();
@@ -38,6 +40,8 @@ const App = () => (
               <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/kyc-onboarding" element={<KycOnboarding />} />
+              <Route path="/create-project" element={<CreateProject />} />
+              <Route path="/project/:projectId" element={<ProjectDetail />} />
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/payment-success" element={<PaymentSuccess />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
