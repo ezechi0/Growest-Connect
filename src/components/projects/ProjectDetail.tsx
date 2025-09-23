@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useUserRole } from '@/hooks/useUserRole';
 import { ProjectInterestModal } from './ProjectInterestModal';
+import { ConnectionRequestModal } from '@/components/investor/ConnectionRequestModal';
 import { 
   MapPin, 
   Calendar, 
@@ -18,6 +19,7 @@ import {
   Heart,
   Share2,
   MessageCircle,
+  Handshake,
   ExternalLink,
   Building,
   Target,
@@ -76,6 +78,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showInterestModal, setShowInterestModal] = useState(false);
+  const [showConnectionModal, setShowConnectionModal] = useState(false);
   const [interestStats, setInterestStats] = useState({
     total_interests: 0,
     total_potential_investment: 0
@@ -561,14 +564,24 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
                 </div>
               )}
 
-              {!isOwner && project.status === 'active' && (
-                <Button 
-                  className="w-full" 
-                  onClick={handleShowInterest}
-                >
-                  <TrendingUp className="w-4 h-4 mr-2" />
-                  Exprimer mon intérêt
-                </Button>
+              {!isOwner && project.status === 'active' && isInvestor() && (
+                <div className="flex gap-3">
+                  <Button 
+                    variant="outline"
+                    onClick={() => setShowConnectionModal(true)}
+                    className="flex-1"
+                  >
+                    <Handshake className="w-4 h-4 mr-2" />
+                    Se connecter
+                  </Button>
+                  <Button 
+                    className="flex-1" 
+                    onClick={handleShowInterest}
+                  >
+                    <TrendingUp className="w-4 h-4 mr-2" />
+                    Exprimer intérêt
+                  </Button>
+                </div>
               )}
             </CardContent>
           </Card>
@@ -648,7 +661,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
         </div>
       </div>
 
-      {/* Modal d'expression d'intérêt */}
+      {/* Modals */}
       <ProjectInterestModal
         isOpen={showInterestModal}
         onClose={() => setShowInterestModal(false)}
@@ -657,6 +670,13 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
           setShowInterestModal(false);
           loadInterestStats();
         }}
+      />
+      
+      <ConnectionRequestModal
+        isOpen={showConnectionModal}
+        onClose={() => setShowConnectionModal(false)}
+        project={project}
+        onSuccess={() => setShowConnectionModal(false)}
       />
     </div>
   );

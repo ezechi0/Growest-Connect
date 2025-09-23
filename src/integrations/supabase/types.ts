@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      connection_requests: {
+        Row: {
+          created_at: string
+          entrepreneur_id: string
+          id: string
+          investor_id: string
+          message: string | null
+          project_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          entrepreneur_id: string
+          id?: string
+          investor_id: string
+          message?: string | null
+          project_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          entrepreneur_id?: string
+          id?: string
+          investor_id?: string
+          message?: string | null
+          project_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           created_at: string | null

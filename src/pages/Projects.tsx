@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useUserRole } from "@/hooks/useUserRole";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { InvestorCatalog } from "@/components/investor/InvestorCatalog";
 
 interface Project {
   id: string;
@@ -195,6 +196,11 @@ const Projects = () => {
         </div>
       </div>
     );
+  }
+
+  // Si l'utilisateur est un investisseur, afficher le catalogue spécialisé
+  if (isInvestor()) {
+    return <InvestorCatalog />;
   }
 
   return (
