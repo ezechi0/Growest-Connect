@@ -19,7 +19,7 @@ export const Chatbot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: 'Bonjour ! Je suis votre assistant IA pour Growest Connect. Comment puis-je vous aider aujourd\'hui ?',
+      content: 'Bonjour ! Je suis votre assistant virtuel pour Growest Connect. Comment puis-je vous aider aujourd\'hui ?',
       isBot: true,
       timestamp: new Date(),
     }
@@ -67,7 +67,7 @@ export const Chatbot = () => {
       console.error('Chatbot error:', error);
       toast({
         title: "Erreur",
-        description: "Impossible de contacter l'assistant IA. Veuillez réessayer.",
+        description: "Impossible de contacter l'assistant virtuel. Veuillez réessayer.",
         variant: "destructive",
       });
     } finally {

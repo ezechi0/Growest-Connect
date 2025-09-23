@@ -251,7 +251,7 @@ export const InvestorDashboard = ({ userId, isPremium = false }: InvestorDashboa
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="discover">Découvrir</TabsTrigger>
           <TabsTrigger value="matches" disabled={!isPremium}>
-            Matching IA {!isPremium && "🔒"}
+            Matching Intelligent {!isPremium && "🔒"}
           </TabsTrigger>
           <TabsTrigger value="portfolio">Mon Portfolio</TabsTrigger>
         </TabsList>
@@ -320,10 +320,10 @@ export const InvestorDashboard = ({ userId, isPremium = false }: InvestorDashboa
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Star className="h-5 w-5 text-accent" />
-                    Recommandations IA
+                    Recommandations Personnalisées
                   </CardTitle>
                   <CardDescription>
-                    Projets sélectionnés par notre IA en fonction de votre profil et préférences
+                    Projets sélectionnés en fonction de votre profil et préférences
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -340,7 +340,7 @@ export const InvestorDashboard = ({ userId, isPremium = false }: InvestorDashboa
                 <div className="mb-4">🔒</div>
                 <h3 className="text-lg font-semibold mb-2">Fonctionnalité Premium</h3>
                 <p className="text-muted-foreground mb-4">
-                  Accédez au matching IA intelligent pour découvrir les projets parfaits pour vous.
+                  Accédez au matching intelligent pour découvrir les projets parfaits pour vous.
                 </p>
                 <Button>Passer au Premium</Button>
               </CardContent>

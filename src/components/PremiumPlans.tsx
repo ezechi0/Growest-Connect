@@ -12,7 +12,7 @@ const plans = [
     features: [
       "Visibilité renforcée des projets",
       "Accès complet aux informations d'investisseurs",
-      "Matching IA avancé",
+      "Matching avancé",
       "Statistiques détaillées",
       "Support prioritaire",
       "Notifications en temps réel",

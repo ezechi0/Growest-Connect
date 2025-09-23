@@ -57,7 +57,7 @@ const Home = () => {
             Pourquoi Choisir <span className="gradient-text">Growest Connect</span> ?
           </h2>
           <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-            Une solution complète pour connecter porteurs de projets et investisseurs avec des technologies de pointe
+            Une solution complète pour connecter porteurs de projets et investisseurs de manière sécurisée et efficace
           </p>
         </div>
         
@@ -71,7 +71,7 @@ const Home = () => {
             </CardHeader>
             <CardContent>
               <CardDescription className="text-base leading-relaxed">
-                Notre IA connecte automatiquement les projets aux investisseurs selon leurs critères et préférences, maximisant les chances de succès.
+                Notre système connecte automatiquement les projets aux investisseurs selon leurs critères et préférences, maximisant les chances de succès.
               </CardDescription>
             </CardContent>
           </Card>
@@ -99,7 +99,7 @@ const Home = () => {
             </CardHeader>
             <CardContent>
               <CardDescription className="text-base leading-relaxed">
-                Messagerie cryptée, paiements sécurisés et protection complète de vos données avec les dernières technologies blockchain.
+                Messagerie cryptée, paiements sécurisés et protection complète de vos données avec les meilleurs standards de sécurité.
               </CardDescription>
             </CardContent>
           </Card>

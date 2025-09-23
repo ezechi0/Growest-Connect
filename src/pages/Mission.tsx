@@ -69,7 +69,7 @@ const Mission = () => {
                 <div className="w-10 h-10 bg-gradient-to-r from-accent to-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Lightbulb className="w-5 h-5 text-white" />
                 </div>
-                <span className="font-semibold text-lg">Innovation et excellence technologique</span>
+                <span className="font-semibold text-lg">Innovation et excellence dans nos services</span>
               </div>
               <div className="flex items-center space-x-4 group">
                 <div className="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">

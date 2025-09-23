@@ -27,7 +27,7 @@ const plans = [
       'Profil standard',
     ],
     limitations: [
-      'Pas de matching IA',
+      'Matching de base',
       'Visibilité limitée',
     ],
     popular: false,
@@ -41,7 +41,7 @@ const plans = [
     icon: Zap,
     features: [
       'Accès complet aux projets',
-      'Matching IA intelligent',
+      'Matching intelligent avancé',
       'Messagerie illimitée',
       'Profil premium avec badge',
       'Statistiques avancées',
