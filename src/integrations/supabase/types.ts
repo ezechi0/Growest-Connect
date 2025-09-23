@@ -115,8 +115,13 @@ export type Database = {
           id: string
           is_public: boolean | null
           is_verified: boolean | null
+          kyc_document_url: string | null
+          kyc_rejected_reason: string | null
+          kyc_status: string | null
+          kyc_verified_at: string | null
           location: string | null
           phone: string | null
+          role: string | null
           updated_at: string | null
           user_type: string
           website: string | null
@@ -130,8 +135,13 @@ export type Database = {
           id: string
           is_public?: boolean | null
           is_verified?: boolean | null
+          kyc_document_url?: string | null
+          kyc_rejected_reason?: string | null
+          kyc_status?: string | null
+          kyc_verified_at?: string | null
           location?: string | null
           phone?: string | null
+          role?: string | null
           updated_at?: string | null
           user_type: string
           website?: string | null
@@ -145,8 +155,13 @@ export type Database = {
           id?: string
           is_public?: boolean | null
           is_verified?: boolean | null
+          kyc_document_url?: string | null
+          kyc_rejected_reason?: string | null
+          kyc_status?: string | null
+          kyc_verified_at?: string | null
           location?: string | null
           phone?: string | null
+          role?: string | null
           updated_at?: string | null
           user_type?: string
           website?: string | null
@@ -259,6 +274,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      subscriptions: {
+        Row: {
+          amount: number | null
+          created_at: string
+          currency: string | null
+          end_date: string | null
+          id: string
+          paystack_customer_code: string | null
+          paystack_subscription_code: string | null
+          plan_type: string
+          start_date: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          end_date?: string | null
+          id?: string
+          paystack_customer_code?: string | null
+          paystack_subscription_code?: string | null
+          plan_type: string
+          start_date?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          end_date?: string | null
+          id?: string
+          paystack_customer_code?: string | null
+          paystack_subscription_code?: string | null
+          plan_type?: string
+          start_date?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       transactions: {
         Row: {
