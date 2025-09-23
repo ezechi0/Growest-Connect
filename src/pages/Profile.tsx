@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUserRole } from "@/hooks/useUserRole";
+import { KycStatus } from "@/components/KycStatus";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,8 +26,10 @@ import {
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const { user, profile, loading, updateProfile } = useUserRole();
+  const navigate = useNavigate();
   
-  // Données utilisateur d'exemple - sera connecté à Supabase
+  // Données utilisateur d'exemple - remplacé par les vraies données
   const [userProfile, setUserProfile] = useState({
     name: "Amina Diallo",
     email: "amina.diallo@email.com",
@@ -36,6 +41,37 @@ const Profile = () => {
     website: "www.agritech-solutions.sn",
     experience: "5 ans d'expérience"
   });
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate('/auth');
+    }
+    if (profile) {
+      setUserProfile({
+        name: profile.full_name,
+        email: user?.email || '',
+        phone: profile.phone || '+221 77 123 45 67',
+        location: profile.location || 'Dakar, Sénégal',
+        userType: profile.user_type === 'entrepreneur' ? 'Porteur de projet' : 'Investisseur',
+        company: profile.company || '',
+        bio: profile.bio || '',
+        website: profile.website || '',
+        experience: '5 ans d\'expérience'
+      });
+    }
+  }, [user, profile, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   const myProjects = [
     {
@@ -134,6 +170,9 @@ const Profile = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* KYC Status */}
+        <KycStatus />
 
         {/* Tabs */}
         <Tabs defaultValue="overview" className="space-y-6">

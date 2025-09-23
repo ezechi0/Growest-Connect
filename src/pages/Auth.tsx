@@ -125,8 +125,12 @@ const Auth = () => {
       } else {
         toast({
           title: "Inscription réussie",
-          description: "Vérifiez votre email pour confirmer votre compte"
+          description: "Redirection vers la finalisation de votre profil..."
         });
+        // Redirection vers l'onboarding KYC après inscription
+        setTimeout(() => {
+          navigate('/kyc-onboarding');
+        }, 2000);
       }
     } catch (error) {
       toast({

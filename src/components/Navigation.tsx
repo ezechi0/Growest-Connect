@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -12,31 +13,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Menu, LogOut, User, Settings, Home, Target, Briefcase, TrendingUp, BarChart3, Crown } from "lucide-react";
-import type { User as SupabaseUser } from "@supabase/supabase-js";
+import { useUserRole } from "@/hooks/useUserRole";
+import { Menu, LogOut, User, Settings, Home, Target, Briefcase, TrendingUp, BarChart3, Crown, Shield } from "lucide-react";
 
 const Navigation = () => {
-  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const { user, profile, isAdmin, isKycApproved } = useUserRole();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
-
-  useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user ?? null);
-      }
-    );
-
-    return () => subscription.unsubscribe();
-  }, []);
 
   const handleSignOut = async () => {
     try {
@@ -75,9 +60,11 @@ const Navigation = () => {
     return location.pathname === path;
   };
 
-  const getUserInitials = (user: SupabaseUser) => {
-    const name = user.user_metadata?.full_name || user.email || "U";
-    return name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
+  const getUserInitials = () => {
+    if (profile?.full_name) {
+      return profile.full_name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
+    }
+    return user?.email?.charAt(0).toUpperCase() || "U";
   };
 
   return (
@@ -122,37 +109,58 @@ const Navigation = () => {
                 {/* Desktop User Menu */}
                 <div className="hidden md:block">
                   <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                        <Avatar className="h-10 w-10">
-                          <AvatarFallback className="bg-primary text-primary-foreground">
-                            {getUserInitials(user)}
-                          </AvatarFallback>
-                        </Avatar>
-                      </Button>
-                    </DropdownMenuTrigger>
+                     <DropdownMenuTrigger asChild>
+                       <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                         <Avatar className="h-10 w-10">
+                           <AvatarImage src={profile?.avatar_url || ""} />
+                           <AvatarFallback className="bg-primary text-primary-foreground">
+                             {getUserInitials()}
+                           </AvatarFallback>
+                         </Avatar>
+                         {!isKycApproved() && profile?.kyc_status !== 'approved' && (
+                           <Badge variant="outline" className="absolute -top-2 -right-2 text-xs p-1">
+                             KYC
+                           </Badge>
+                         )}
+                       </Button>
+                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56" align="end">
-                      <div className="flex items-center justify-start gap-2 p-2">
-                        <div className="flex flex-col space-y-1 leading-none">
-                          <p className="font-medium text-sm">
-                            {user.user_metadata?.full_name || "Utilisateur"}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {user.email}
-                          </p>
-                        </div>
-                      </div>
+                       <div className="flex items-center justify-start gap-2 p-2">
+                         <div className="flex flex-col space-y-1 leading-none">
+                           <p className="font-medium text-sm">
+                             {profile?.full_name || user?.email}
+                           </p>
+                           <p className="text-xs text-muted-foreground">
+                             {profile?.user_type === 'entrepreneur' ? 'Porteur de projet' : 
+                              profile?.user_type === 'investor' ? 'Investisseur' : 
+                              'Utilisateur'}
+                           </p>
+                         </div>
+                         {isAdmin() && (
+                           <Badge variant="secondary" className="text-xs">
+                             Admin
+                           </Badge>
+                         )}
+                       </div>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem asChild>
-                        <Link to="/profile" className="flex items-center">
-                          <User className="mr-2 h-4 w-4" />
-                          <span>Profil</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Settings className="mr-2 h-4 w-4" />
-                        <span>Paramètres</span>
-                      </DropdownMenuItem>
+                       <DropdownMenuItem asChild>
+                         <Link to="/profile" className="flex items-center">
+                           <User className="mr-2 h-4 w-4" />
+                           <span>Profil</span>
+                         </Link>
+                       </DropdownMenuItem>
+                       {isAdmin() && (
+                         <DropdownMenuItem asChild>
+                           <Link to="/admin" className="flex items-center">
+                             <Shield className="mr-2 h-4 w-4" />
+                             <span>Administration</span>
+                           </Link>
+                         </DropdownMenuItem>
+                       )}
+                       <DropdownMenuItem>
+                         <Settings className="mr-2 h-4 w-4" />
+                         <span>Paramètres</span>
+                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={handleSignOut}>
                         <LogOut className="mr-2 h-4 w-4" />
@@ -173,21 +181,29 @@ const Navigation = () => {
                     <SheetContent side="right" className="w-80">
                       <div className="flex flex-col h-full">
                         {/* User Info */}
-                        <div className="flex items-center space-x-3 p-4 border-b">
-                          <Avatar className="h-12 w-12">
-                            <AvatarFallback className="bg-primary text-primary-foreground">
-                              {getUserInitials(user)}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <p className="font-medium">
-                              {user.user_metadata?.full_name || "Utilisateur"}
-                            </p>
-                            <p className="text-sm text-muted-foreground">
-                              {user.email}
-                            </p>
-                          </div>
-                        </div>
+                         <div className="flex items-center space-x-3 p-4 border-b">
+                           <Avatar className="h-12 w-12">
+                             <AvatarImage src={profile?.avatar_url || ""} />
+                             <AvatarFallback className="bg-primary text-primary-foreground">
+                               {getUserInitials()}
+                             </AvatarFallback>
+                           </Avatar>
+                           <div className="flex-1">
+                             <p className="font-medium">
+                               {profile?.full_name || user?.email}
+                             </p>
+                             <p className="text-sm text-muted-foreground">
+                               {profile?.user_type === 'entrepreneur' ? 'Porteur de projet' : 
+                                profile?.user_type === 'investor' ? 'Investisseur' : 
+                                'Utilisateur'}
+                             </p>
+                             {!isKycApproved() && profile?.kyc_status !== 'approved' && (
+                               <Badge variant="outline" className="text-xs mt-1">
+                                 KYC en cours
+                               </Badge>
+                             )}
+                           </div>
+                         </div>
 
                         {/* Mobile Navigation */}
                         <nav className="flex-1 py-6">
@@ -210,18 +226,32 @@ const Navigation = () => {
                                 </Link>
                               );
                             })}
-                            <Link
-                              to="/profile"
-                              onClick={() => setIsOpen(false)}
-                              className={`flex items-center space-x-3 px-4 py-3 rounded-md text-sm font-medium transition-colors
-                                ${isActive("/profile") 
-                                  ? "text-primary bg-secondary" 
-                                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                                }`}
-                            >
-                              <User className="w-5 h-5" />
-                              <span>Profil</span>
-                            </Link>
+                             <Link
+                               to="/profile"
+                               onClick={() => setIsOpen(false)}
+                               className={`flex items-center space-x-3 px-4 py-3 rounded-md text-sm font-medium transition-colors
+                                 ${isActive("/profile") 
+                                   ? "text-primary bg-secondary" 
+                                   : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                                 }`}
+                             >
+                               <User className="w-5 h-5" />
+                               <span>Profil</span>
+                             </Link>
+                             {isAdmin() && (
+                               <Link
+                                 to="/admin"
+                                 onClick={() => setIsOpen(false)}
+                                 className={`flex items-center space-x-3 px-4 py-3 rounded-md text-sm font-medium transition-colors
+                                   ${isActive("/admin") 
+                                     ? "text-primary bg-secondary" 
+                                     : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                                   }`}
+                               >
+                                 <Shield className="w-5 h-5" />
+                                 <span>Administration</span>
+                               </Link>
+                             )}
                           </div>
                         </nav>
 
