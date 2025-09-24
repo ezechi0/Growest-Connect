@@ -235,8 +235,10 @@ export const AdminDashboard: React.FC = () => {
         </div>
 
         <Tabs defaultValue="kyc" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="kyc">Validation KYC</TabsTrigger>
+            <TabsTrigger value="projects">Projets</TabsTrigger>
+            <TabsTrigger value="payments">Paiements</TabsTrigger>
             <TabsTrigger value="payouts">Versements</TabsTrigger>
           </TabsList>
 
@@ -339,6 +341,44 @@ export const AdminDashboard: React.FC = () => {
                     ))}
                   </div>
                 )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="projects" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building className="w-5 h-5" />
+                  Validation des Projets
+                </CardTitle>
+                <CardDescription>
+                  Examinez et validez les nouveaux projets soumis
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-center py-8">
+                  Module de validation des projets en cours de développement
+                </p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="payments" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CreditCard className="w-5 h-5" />
+                  Suivi des Paiements
+                </CardTitle>
+                <CardDescription>
+                  Surveillez les transactions et résolvez les litiges
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-center py-8">
+                  Module de suivi des paiements en cours de développement
+                </p>
               </CardContent>
             </Card>
           </TabsContent>
