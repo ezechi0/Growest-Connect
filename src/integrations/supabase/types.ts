@@ -129,6 +129,33 @@ export type Database = {
           },
         ]
       }
+      exchange_rates: {
+        Row: {
+          created_at: string | null
+          from_currency: string
+          id: string
+          rate: number
+          to_currency: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          from_currency: string
+          id?: string
+          rate: number
+          to_currency: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          from_currency?: string
+          id?: string
+          rate?: number
+          to_currency?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           attachment_name: string | null
@@ -216,6 +243,54 @@ export type Database = {
           type?: string
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      payouts: {
+        Row: {
+          amount: number
+          bank_details: Json | null
+          created_at: string | null
+          currency: string | null
+          entrepreneur_id: string
+          id: string
+          notes: string | null
+          payout_method: string | null
+          payout_reference: string | null
+          processed_at: string | null
+          project_id: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          amount: number
+          bank_details?: Json | null
+          created_at?: string | null
+          currency?: string | null
+          entrepreneur_id: string
+          id?: string
+          notes?: string | null
+          payout_method?: string | null
+          payout_reference?: string | null
+          processed_at?: string | null
+          project_id: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          bank_details?: Json | null
+          created_at?: string | null
+          currency?: string | null
+          entrepreneur_id?: string
+          id?: string
+          notes?: string | null
+          payout_method?: string | null
+          payout_reference?: string | null
+          processed_at?: string | null
+          project_id?: string
+          status?: string | null
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -526,39 +601,63 @@ export type Database = {
       transactions: {
         Row: {
           amount: number
+          commission_amount: number | null
           created_at: string | null
+          currency: string | null
           id: string
           investor_id: string
+          net_amount: number | null
           notes: string | null
           payment_method: string | null
+          payout_date: string | null
+          payout_reference: string | null
+          payout_status: string | null
           paystack_reference: string | null
           project_id: string
+          receipt_number: string | null
+          receipt_url: string | null
           status: string | null
           transaction_type: string | null
           updated_at: string | null
         }
         Insert: {
           amount: number
+          commission_amount?: number | null
           created_at?: string | null
+          currency?: string | null
           id?: string
           investor_id: string
+          net_amount?: number | null
           notes?: string | null
           payment_method?: string | null
+          payout_date?: string | null
+          payout_reference?: string | null
+          payout_status?: string | null
           paystack_reference?: string | null
           project_id: string
+          receipt_number?: string | null
+          receipt_url?: string | null
           status?: string | null
           transaction_type?: string | null
           updated_at?: string | null
         }
         Update: {
           amount?: number
+          commission_amount?: number | null
           created_at?: string | null
+          currency?: string | null
           id?: string
           investor_id?: string
+          net_amount?: number | null
           notes?: string | null
           payment_method?: string | null
+          payout_date?: string | null
+          payout_reference?: string | null
+          payout_status?: string | null
           paystack_reference?: string | null
           project_id?: string
+          receipt_number?: string | null
+          receipt_url?: string | null
           status?: string | null
           transaction_type?: string | null
           updated_at?: string | null
@@ -585,6 +684,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      calculate_commission: {
+        Args: { amount: number; commission_rate?: number }
+        Returns: number
+      }
+      generate_receipt_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
       get_project_interest_stats: {
         Args: { project_uuid: string }
         Returns: {

@@ -4,9 +4,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { RoleBasedAccess } from '../RoleBasedAccess';
+import { PayoutManagement } from './PayoutManagement';
 import {
   Dialog,
   DialogContent,
@@ -30,7 +32,10 @@ import {
   Clock,
   Eye,
   TrendingUp,
-  Activity
+  Activity,
+  DollarSign,
+  Building,
+  CreditCard
 } from 'lucide-react';
 
 interface PendingKyc {
@@ -229,107 +234,119 @@ export const AdminDashboard: React.FC = () => {
           </Card>
         </div>
 
-        {/* Validation KYC */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />
-              Validation KYC en attente
-            </CardTitle>
-            <CardDescription>
-              Examinez et validez les demandes de vérification d'identité
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {pendingKycList.length === 0 ? (
-              <p className="text-muted-foreground text-center py-8">
-                Aucune demande KYC en attente
-              </p>
-            ) : (
-              <div className="space-y-4">
-                {pendingKycList.map((user) => (
-                  <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3">
-                        <div>
-                          <h4 className="font-medium">{user.full_name}</h4>
-                          <p className="text-sm text-muted-foreground">
-                            {user.user_type} {user.company && `• ${user.company}`}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            Soumis le {new Date(user.created_at).toLocaleDateString('fr-FR')}
-                          </p>
+        <Tabs defaultValue="kyc" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="kyc">Validation KYC</TabsTrigger>
+            <TabsTrigger value="payouts">Versements</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="kyc" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="w-5 h-5" />
+                  Validation KYC en attente
+                </CardTitle>
+                <CardDescription>
+                  Examinez et validez les demandes de vérification d'identité
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {pendingKycList.length === 0 ? (
+                  <p className="text-muted-foreground text-center py-8">
+                    Aucune demande KYC en attente
+                  </p>
+                ) : (
+                  <div className="space-y-4">
+                    {pendingKycList.map((user) => (
+                      <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3">
+                            <div>
+                              <h4 className="font-medium">{user.full_name}</h4>
+                              <p className="text-sm text-muted-foreground">
+                                {user.user_type} {user.company && `• ${user.company}`}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                Soumis le {new Date(user.created_at).toLocaleDateString('fr-FR')}
+                              </p>
+                            </div>
+                            <Badge variant="outline" className="ml-auto">
+                              {user.kyc_status === 'pending' ? 'En attente' : 'En révision'}
+                            </Badge>
+                          </div>
                         </div>
-                        <Badge variant="outline" className="ml-auto">
-                          {user.kyc_status === 'pending' ? 'En attente' : 'En révision'}
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {user.kyc_document_url && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => openDocument(user.kyc_document_url!)}
-                        >
-                          <Eye className="w-4 h-4 mr-1" />
-                          Voir documents
-                        </Button>
-                      )}
-                      <Button
-                        size="sm"
-                        onClick={() => handleKycDecision(user.id, 'approved')}
-                        className="bg-green-600 hover:bg-green-700"
-                      >
-                        <CheckCircle className="w-4 h-4 mr-1" />
-                        Approuver
-                      </Button>
-                      <Dialog>
-                        <DialogTrigger asChild>
+                        <div className="flex items-center gap-2">
+                          {user.kyc_document_url && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => openDocument(user.kyc_document_url!)}
+                            >
+                              <Eye className="w-4 h-4 mr-1" />
+                              Voir documents
+                            </Button>
+                          )}
                           <Button
                             size="sm"
-                            variant="destructive"
-                            onClick={() => setSelectedUser(user)}
+                            onClick={() => handleKycDecision(user.id, 'approved')}
+                            className="bg-green-600 hover:bg-green-700"
                           >
-                            <XCircle className="w-4 h-4 mr-1" />
-                            Rejeter
+                            <CheckCircle className="w-4 h-4 mr-1" />
+                            Approuver
                           </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Rejeter la demande KYC</DialogTitle>
-                            <DialogDescription>
-                              Pourquoi rejetez-vous la demande de {user.full_name} ?
-                            </DialogDescription>
-                          </DialogHeader>
-                          <div className="space-y-4">
-                            <Textarea
-                              placeholder="Raison du rejet..."
-                              value={rejectionReason}
-                              onChange={(e) => setRejectionReason(e.target.value)}
-                            />
-                            <div className="flex justify-end gap-2">
-                              <Button variant="outline" onClick={() => setSelectedUser(null)}>
-                                Annuler
-                              </Button>
+                          <Dialog>
+                            <DialogTrigger asChild>
                               <Button
+                                size="sm"
                                 variant="destructive"
-                                onClick={() => handleKycDecision(user.id, 'rejected', rejectionReason)}
-                                disabled={!rejectionReason.trim()}
+                                onClick={() => setSelectedUser(user)}
                               >
-                                Confirmer le rejet
+                                <XCircle className="w-4 h-4 mr-1" />
+                                Rejeter
                               </Button>
-                            </div>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    </div>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>Rejeter la demande KYC</DialogTitle>
+                                <DialogDescription>
+                                  Pourquoi rejetez-vous la demande de {user.full_name} ?
+                                </DialogDescription>
+                              </DialogHeader>
+                              <div className="space-y-4">
+                                <Textarea
+                                  placeholder="Raison du rejet..."
+                                  value={rejectionReason}
+                                  onChange={(e) => setRejectionReason(e.target.value)}
+                                />
+                                <div className="flex justify-end gap-2">
+                                  <Button variant="outline" onClick={() => setSelectedUser(null)}>
+                                    Annuler
+                                  </Button>
+                                  <Button
+                                    variant="destructive"
+                                    onClick={() => handleKycDecision(user.id, 'rejected', rejectionReason)}
+                                    disabled={!rejectionReason.trim()}
+                                  >
+                                    Confirmer le rejet
+                                  </Button>
+                                </div>
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="payouts" className="space-y-6">
+            <PayoutManagement />
+          </TabsContent>
+        </Tabs>
       </div>
     </RoleBasedAccess>
   );

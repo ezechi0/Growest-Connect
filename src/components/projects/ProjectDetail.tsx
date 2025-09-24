@@ -11,6 +11,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useUserRole } from '@/hooks/useUserRole';
 import { ProjectInterestModal } from './ProjectInterestModal';
 import { ConnectionRequestModal } from '@/components/investor/ConnectionRequestModal';
+import { InvestmentForm } from '@/components/transactions/InvestmentForm';
 import { 
   MapPin, 
   Calendar, 
@@ -79,6 +80,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
   const [isFavorite, setIsFavorite] = useState(false);
   const [showInterestModal, setShowInterestModal] = useState(false);
   const [showConnectionModal, setShowConnectionModal] = useState(false);
+  const [showInvestmentForm, setShowInvestmentForm] = useState(false);
   const [interestStats, setInterestStats] = useState({
     total_interests: 0,
     total_potential_investment: 0
@@ -565,21 +567,32 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
               )}
 
               {!isOwner && project.status === 'active' && isInvestor() && (
-                <div className="flex gap-3">
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline"
+                      onClick={() => setShowConnectionModal(true)}
+                      className="flex-1"
+                    >
+                      <Handshake className="w-4 h-4 mr-2" />
+                      Se connecter
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      className="flex-1" 
+                      onClick={handleShowInterest}
+                    >
+                      <TrendingUp className="w-4 h-4 mr-2" />
+                      Exprimer intérêt
+                    </Button>
+                  </div>
                   <Button 
-                    variant="outline"
-                    onClick={() => setShowConnectionModal(true)}
-                    className="flex-1"
+                    onClick={() => setShowInvestmentForm(true)}
+                    disabled={!isKycApproved()}
+                    className="w-full"
                   >
-                    <Handshake className="w-4 h-4 mr-2" />
-                    Se connecter
-                  </Button>
-                  <Button 
-                    className="flex-1" 
-                    onClick={handleShowInterest}
-                  >
-                    <TrendingUp className="w-4 h-4 mr-2" />
-                    Exprimer intérêt
+                    <DollarSign className="w-4 h-4 mr-2" />
+                    Investir maintenant
                   </Button>
                 </div>
               )}
@@ -678,6 +691,33 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
         project={project}
         onSuccess={() => setShowConnectionModal(false)}
       />
+
+      {showInvestmentForm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-background p-6 rounded-lg max-w-md w-full mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold">Investir dans le projet</h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowInvestmentForm(false)}
+              >
+                ×
+              </Button>
+            </div>
+            <InvestmentForm
+              projectId={project.id}
+              projectTitle={project.title}
+              minInvestment={project.min_investment}
+              maxInvestment={project.max_investment}
+              onSuccess={() => {
+                setShowInvestmentForm(false);
+                loadProject();
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
