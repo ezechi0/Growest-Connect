@@ -9,6 +9,9 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { RoleBasedAccess } from '../RoleBasedAccess';
 import { PayoutManagement } from './PayoutManagement';
+import { DataSeeder } from '@/components/admin/DataSeeder';
+import { UsageMonitoring } from '@/components/analytics/UsageMonitoring';
+import { ProductionChecklist } from '@/components/deployment/ProductionChecklist';
 import {
   Dialog,
   DialogContent,
@@ -174,217 +177,268 @@ export const AdminDashboard: React.FC = () => {
     <RoleBasedAccess allowedRoles={['admin']}>
       <div className="container mx-auto p-6 space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Tableau de bord Admin</h1>
+          <div>
+            <h1 className="text-3xl font-bold">Administration Growest Connect</h1>
+            <p className="text-muted-foreground">Gestion complète de la plateforme</p>
+          </div>
           <Badge variant="secondary">
             <Activity className="w-4 h-4 mr-1" />
             Administrateur
           </Badge>
         </div>
 
-        {/* Statistiques */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Utilisateurs totaux</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.totalUsers}</div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">KYC en attente</CardTitle>
-              <Clock className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-yellow-600">{stats.pendingKyc}</div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">KYC approuvés</CardTitle>
-              <CheckCircle className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">{stats.approvedKyc}</div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Projets actifs</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.activeProjects}</div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Investissements</CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.totalInvestments}</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Tabs defaultValue="kyc" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="kyc">Validation KYC</TabsTrigger>
-            <TabsTrigger value="projects">Projets</TabsTrigger>
-            <TabsTrigger value="payments">Paiements</TabsTrigger>
-            <TabsTrigger value="payouts">Versements</TabsTrigger>
+        <Tabs defaultValue="overview" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-5">
+            <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="data">Données Test</TabsTrigger>
+            <TabsTrigger value="deployment">Déploiement</TabsTrigger>
+            <TabsTrigger value="management">Gestion</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="kyc" className="space-y-6">
+          <TabsContent value="overview">
+            {/* Statistiques */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Utilisateurs totaux</CardTitle>
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.totalUsers}</div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">KYC en attente</CardTitle>
+                  <Clock className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-yellow-600">{stats.pendingKyc}</div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">KYC approuvés</CardTitle>
+                  <CheckCircle className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-green-600">{stats.approvedKyc}</div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Projets actifs</CardTitle>
+                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.activeProjects}</div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Investissements</CardTitle>
+                  <Activity className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{stats.totalInvestments}</div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Actions rapides */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="w-5 h-5" />
-                  Validation KYC en attente
-                </CardTitle>
-                <CardDescription>
-                  Examinez et validez les demandes de vérification d'identité
-                </CardDescription>
+                <CardTitle>Actions Rapides</CardTitle>
+                <CardDescription>Accès rapide aux fonctions principales</CardDescription>
               </CardHeader>
-              <CardContent>
-                {pendingKycList.length === 0 ? (
-                  <p className="text-muted-foreground text-center py-8">
-                    Aucune demande KYC en attente
-                  </p>
-                ) : (
-                  <div className="space-y-4">
-                    {pendingKycList.map((user) => (
-                      <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3">
-                            <div>
-                              <h4 className="font-medium">{user.full_name}</h4>
-                              <p className="text-sm text-muted-foreground">
-                                {user.user_type} {user.company && `• ${user.company}`}
-                              </p>
-                              <p className="text-xs text-muted-foreground">
-                                Soumis le {new Date(user.created_at).toLocaleDateString('fr-FR')}
-                              </p>
+              <CardContent className="grid md:grid-cols-3 gap-4">
+                <Button className="h-20 flex flex-col gap-2">
+                  <FileText className="h-6 w-6" />
+                  <span>Charger Données Test</span>
+                </Button>
+                <Button className="h-20 flex flex-col gap-2" variant="outline">
+                  <TrendingUp className="h-6 w-6" />
+                  <span>Voir Analytics</span>
+                </Button>
+                <Button className="h-20 flex flex-col gap-2" variant="outline">
+                  <CheckCircle className="h-6 w-6" />
+                  <span>Checklist Déploiement</span>
+                </Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="analytics">
+            <UsageMonitoring />
+          </TabsContent>
+
+          <TabsContent value="data">
+            <DataSeeder />
+          </TabsContent>
+
+          <TabsContent value="deployment">
+            <ProductionChecklist />
+          </TabsContent>
+
+          <TabsContent value="management">
+            <Tabs defaultValue="kyc" className="space-y-6">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="kyc">Validation KYC</TabsTrigger>
+                <TabsTrigger value="projects">Projets</TabsTrigger>
+                <TabsTrigger value="payments">Paiements</TabsTrigger>
+                <TabsTrigger value="payouts">Versements</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="kyc" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <FileText className="w-5 h-5" />
+                      Validation KYC en attente
+                    </CardTitle>
+                    <CardDescription>
+                      Examinez et validez les demandes de vérification d'identité
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {pendingKycList.length === 0 ? (
+                      <p className="text-muted-foreground text-center py-8">
+                        Aucune demande KYC en attente
+                      </p>
+                    ) : (
+                      <div className="space-y-4">
+                        {pendingKycList.map((user) => (
+                          <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3">
+                                <div>
+                                  <h4 className="font-medium">{user.full_name}</h4>
+                                  <p className="text-sm text-muted-foreground">
+                                    {user.user_type} {user.company && `• ${user.company}`}
+                                  </p>
+                                  <p className="text-xs text-muted-foreground">
+                                    Soumis le {new Date(user.created_at).toLocaleDateString('fr-FR')}
+                                  </p>
+                                </div>
+                                <Badge variant="outline" className="ml-auto">
+                                  {user.kyc_status === 'pending' ? 'En attente' : 'En révision'}
+                                </Badge>
+                              </div>
                             </div>
-                            <Badge variant="outline" className="ml-auto">
-                              {user.kyc_status === 'pending' ? 'En attente' : 'En révision'}
-                            </Badge>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {user.kyc_document_url && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => openDocument(user.kyc_document_url!)}
-                            >
-                              <Eye className="w-4 h-4 mr-1" />
-                              Voir documents
-                            </Button>
-                          )}
-                          <Button
-                            size="sm"
-                            onClick={() => handleKycDecision(user.id, 'approved')}
-                            className="bg-green-600 hover:bg-green-700"
-                          >
-                            <CheckCircle className="w-4 h-4 mr-1" />
-                            Approuver
-                          </Button>
-                          <Dialog>
-                            <DialogTrigger asChild>
+                            <div className="flex items-center gap-2">
+                              {user.kyc_document_url && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => openDocument(user.kyc_document_url!)}
+                                >
+                                  <Eye className="w-4 h-4 mr-1" />
+                                  Voir documents
+                                </Button>
+                              )}
                               <Button
                                 size="sm"
-                                variant="destructive"
-                                onClick={() => setSelectedUser(user)}
+                                onClick={() => handleKycDecision(user.id, 'approved')}
+                                className="bg-green-600 hover:bg-green-700"
                               >
-                                <XCircle className="w-4 h-4 mr-1" />
-                                Rejeter
+                                <CheckCircle className="w-4 h-4 mr-1" />
+                                Approuver
                               </Button>
-                            </DialogTrigger>
-                            <DialogContent>
-                              <DialogHeader>
-                                <DialogTitle>Rejeter la demande KYC</DialogTitle>
-                                <DialogDescription>
-                                  Pourquoi rejetez-vous la demande de {user.full_name} ?
-                                </DialogDescription>
-                              </DialogHeader>
-                              <div className="space-y-4">
-                                <Textarea
-                                  placeholder="Raison du rejet..."
-                                  value={rejectionReason}
-                                  onChange={(e) => setRejectionReason(e.target.value)}
-                                />
-                                <div className="flex justify-end gap-2">
-                                  <Button variant="outline" onClick={() => setSelectedUser(null)}>
-                                    Annuler
-                                  </Button>
+                              <Dialog>
+                                <DialogTrigger asChild>
                                   <Button
+                                    size="sm"
                                     variant="destructive"
-                                    onClick={() => handleKycDecision(user.id, 'rejected', rejectionReason)}
-                                    disabled={!rejectionReason.trim()}
+                                    onClick={() => setSelectedUser(user)}
                                   >
-                                    Confirmer le rejet
+                                    <XCircle className="w-4 w-4 mr-1" />
+                                    Rejeter
                                   </Button>
-                                </div>
-                              </div>
-                            </DialogContent>
-                          </Dialog>
-                        </div>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>Rejeter la demande KYC</DialogTitle>
+                                    <DialogDescription>
+                                      Pourquoi rejetez-vous la demande de {user.full_name} ?
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  <div className="space-y-4">
+                                    <Textarea
+                                      placeholder="Raison du rejet..."
+                                      value={rejectionReason}
+                                      onChange={(e) => setRejectionReason(e.target.value)}
+                                    />
+                                    <div className="flex justify-end gap-2">
+                                      <Button variant="outline" onClick={() => setSelectedUser(null)}>
+                                        Annuler
+                                      </Button>
+                                      <Button
+                                        variant="destructive"
+                                        onClick={() => handleKycDecision(user.id, 'rejected', rejectionReason)}
+                                        disabled={!rejectionReason.trim()}
+                                      >
+                                        Confirmer le rejet
+                                      </Button>
+                                    </div>
+                                  </div>
+                                </DialogContent>
+                              </Dialog>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
+                    )}
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-          <TabsContent value="projects" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Building className="w-5 h-5" />
-                  Validation des Projets
-                </CardTitle>
-                <CardDescription>
-                  Examinez et validez les nouveaux projets soumis
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-center py-8">
-                  Module de validation des projets en cours de développement
-                </p>
-              </CardContent>
-            </Card>
-          </TabsContent>
+              <TabsContent value="projects" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Building className="w-5 h-5" />
+                      Validation des Projets
+                    </CardTitle>
+                    <CardDescription>
+                      Examinez et validez les nouveaux projets soumis
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground text-center py-8">
+                      Module de validation des projets en cours de développement
+                    </p>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-          <TabsContent value="payments" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CreditCard className="w-5 h-5" />
-                  Suivi des Paiements
-                </CardTitle>
-                <CardDescription>
-                  Surveillez les transactions et résolvez les litiges
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-center py-8">
-                  Module de suivi des paiements en cours de développement
-                </p>
-              </CardContent>
-            </Card>
-          </TabsContent>
+              <TabsContent value="payments" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <CreditCard className="w-5 h-5" />
+                      Suivi des Paiements
+                    </CardTitle>
+                    <CardDescription>
+                      Surveillez les transactions et résolvez les litiges
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground text-center py-8">
+                      Module de suivi des paiements en cours de développement
+                    </p>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-          <TabsContent value="payouts" className="space-y-6">
-            <PayoutManagement />
+              <TabsContent value="payouts" className="space-y-6">
+                <PayoutManagement />
+              </TabsContent>
+            </Tabs>
           </TabsContent>
         </Tabs>
       </div>
