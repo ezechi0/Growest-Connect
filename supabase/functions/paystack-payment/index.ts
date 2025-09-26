@@ -1,7 +1,7 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.4';
-import { Resend } from "npm:resend@4.0.0";
+// import { Resend } from "npm:resend@2.0.0";
 import { generateReceiptHtml } from './_utils/receipt.ts';
 
 const corsHeaders = {
@@ -26,7 +26,8 @@ serve(async (req) => {
     }
 
     const supabase = createClient(supabaseUrl, supabaseKey);
-    const resend = resendApiKey ? new Resend(resendApiKey) : null;
+    // const resend = resendApiKey ? new Resend(resendApiKey) : null;
+    const resend = null; // Temporarily disabled
     const { action, ...payload } = await req.json();
 
     console.log('Paystack payment action:', action, payload);
@@ -56,10 +57,10 @@ serve(async (req) => {
           'XOF': 100, // Nous utilisons aussi 100 pour XOF
         };
         
-        const multiplier = currencyMultipliers[currency] || 100;
+        const multiplier = currencyMultipliers[currency as keyof typeof currencyMultipliers] || 100;
         const paystackAmount = Math.round(amount * multiplier);
 
-        const paymentData = {
+        const paymentData: any = {
           amount: paystackAmount,
           email,
           currency: currency === 'XOF' ? 'NGN' : currency, // Paystack ne supporte pas XOF directement
@@ -140,7 +141,41 @@ serve(async (req) => {
           throw new Error('Payment verification failed');
         }
 
-        // Update transaction status
+        // Check if this is a subscription payment
+        if (verifyData.data.metadata?.subscription) {
+          // Handle subscription payment
+          const { user_id, plan_type } = verifyData.data.metadata;
+          
+          // Create or update subscription
+          const { error: subError } = await supabase
+            .from('subscriptions')
+            .upsert({
+              user_id,
+              plan_type,
+              status: 'active',
+              amount: verifyData.data.amount / 100,
+              currency: verifyData.data.currency,
+              paystack_subscription_code: verifyData.data.plan_object?.plan_code || null,
+              start_date: new Date().toISOString(),
+              end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days from now
+            }, {
+              onConflict: 'user_id'
+            });
+
+          if (subError) {
+            console.error('Subscription creation error:', subError);
+          }
+
+          return new Response(JSON.stringify({
+            success: true,
+            type: 'subscription',
+            subscription: verifyData.data
+          }), {
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          });
+        }
+
+        // Handle regular investment payment
         const { data: transaction, error: updateError } = await supabase
           .from('transactions')
           .update({ 
@@ -177,13 +212,13 @@ serve(async (req) => {
           if (resend && transaction.profiles) {
             try {
               const receiptHtml = generateReceiptHtml(transaction);
-              await resend.emails.send({
-                from: 'Growest Connect <noreply@growestconnect.com>',
-                to: [transaction.profiles.email || 'unknown@example.com'],
-                subject: `Reçu de paiement - ${transaction.receipt_number}`,
-                html: receiptHtml,
-              });
-              console.log('Receipt sent successfully');
+              // await resend.emails.send({
+              //   from: 'Growest Connect <noreply@growestconnect.com>',
+              //   to: [transaction.profiles.email || 'unknown@example.com'],
+              //   subject: `Reçu de paiement - ${transaction.receipt_number}`,
+              //   html: receiptHtml,
+              // });
+              console.log('Receipt email would be sent here (Resend disabled)');
             } catch (emailError) {
               console.error('Failed to send receipt email:', emailError);
             }
@@ -216,24 +251,122 @@ serve(async (req) => {
       }
 
       case 'create_subscription': {
-        const { plan_code, customer_code, amount } = payload;
+        const { email, amount, plan_code, metadata } = payload;
+        
+        if (!email || !amount || !plan_code) {
+          throw new Error('Missing required fields for subscription creation');
+        }
 
-        const subscriptionResponse = await fetch('https://api.paystack.co/subscription', {
+        // Create or get Paystack plan
+        let planResponse = await fetch(`https://api.paystack.co/plan/${plan_code}`, {
+          headers: {
+            'Authorization': `Bearer ${paystackSecretKey}`,
+          },
+        });
+
+        let planData;
+        if (!planResponse.ok) {
+          // Create new plan
+          const createPlanResponse = await fetch('https://api.paystack.co/plan', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${paystackSecretKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: `Growest ${plan_code} Plan`,
+              amount: amount * 100, // Convert to kobo
+              interval: 'monthly',
+              plan_code,
+            }),
+          });
+
+          if (!createPlanResponse.ok) {
+            const error = await createPlanResponse.json();
+            throw new Error(`Failed to create plan: ${error.message}`);
+          }
+
+          const createPlanData = await createPlanResponse.json();
+          planData = createPlanData.data;
+        } else {
+          const existingPlanData = await planResponse.json();
+          planData = existingPlanData.data;
+        }
+
+        // Initialize subscription payment
+        const subscriptionResponse = await fetch('https://api.paystack.co/transaction/initialize', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${paystackSecretKey}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            customer: customer_code,
-            plan: plan_code,
-            authorization: payload.authorization,
+            email,
+            amount: amount * 100,
+            plan: planData.plan_code,
+            metadata: {
+              subscription: true,
+              plan_type: plan_code,
+              ...metadata
+            },
+            callback_url: `${req.headers.get('origin')}/payment-success`,
           }),
         });
 
+        if (!subscriptionResponse.ok) {
+          const error = await subscriptionResponse.json();
+          throw new Error(`Subscription initialization error: ${error.message}`);
+        }
+
         const subscriptionData = await subscriptionResponse.json();
 
-        return new Response(JSON.stringify(subscriptionData), {
+        return new Response(JSON.stringify({
+          success: true,
+          authorization_url: subscriptionData.data.authorization_url,
+          reference: subscriptionData.data.reference
+        }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+
+      case 'cancel_subscription': {
+        const { subscription_code } = payload;
+        
+        if (!subscription_code) {
+          throw new Error('Missing subscription code');
+        }
+
+        const cancelResponse = await fetch(`https://api.paystack.co/subscription/disable`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${paystackSecretKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            code: subscription_code,
+            token: subscription_code
+          }),
+        });
+
+        if (!cancelResponse.ok) {
+          const error = await cancelResponse.json();
+          throw new Error(`Subscription cancellation error: ${error.message}`);
+        }
+
+        // Update subscription status in database
+        const { error: updateError } = await supabase
+          .from('subscriptions')
+          .update({ status: 'cancelled' })
+          .eq('paystack_subscription_code', subscription_code);
+
+        if (updateError) {
+          console.error('Subscription update error:', updateError);
+        }
+
+        return new Response(JSON.stringify({
+          success: true,
+          message: 'Subscription cancelled successfully'
+        }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         });
       }
@@ -241,11 +374,11 @@ serve(async (req) => {
       default:
         throw new Error('Invalid action');
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Paystack payment error:', error);
     return new Response(JSON.stringify({
       success: false,
-      error: error.message,
+      error: error?.message || 'An error occurred processing the payment',
     }), {
       status: 400,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
