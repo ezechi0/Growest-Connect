@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { PremiumPlans } from "@/components/PremiumPlans";
+import { PremiumPlansV2 } from "@/components/premium/PremiumPlansV2";
+import { SubscriptionStatus } from "@/components/premium/SubscriptionStatus";
+import SubscriptionNotifications from "@/components/notifications/SubscriptionNotifications";
+import { useUserRole } from "@/hooks/useUserRole";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { Crown, TrendingUp, Users, BarChart3, Star, Zap } from "lucide-react";
@@ -37,6 +40,7 @@ const premiumFeatures = [
 export default function Premium() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const { profile } = useUserRole();
 
   useEffect(() => {
     const getUser = async () => {
@@ -77,6 +81,9 @@ export default function Premium() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-accent/5">
+      {/* Subscription Notifications */}
+      {user && <SubscriptionNotifications userId={user.id} />}
+      
       <div className="container mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -90,6 +97,11 @@ export default function Premium() {
             Accédez aux fonctionnalités avancées de Growest Connect et maximisez 
             vos chances de trouver les investisseurs parfaits pour vos projets.
           </p>
+        </div>
+
+        {/* Current Subscription Status */}
+        <div className="mb-12">
+          <SubscriptionStatus userId={user.id} />
         </div>
 
         {/* Features Grid */}
@@ -121,12 +133,11 @@ export default function Premium() {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <PremiumPlans 
-              userEmail={user.email || ""} 
-              userId={user.id} 
-            />
-          </div>
+          <PremiumPlansV2 
+            userEmail={user.email || ""} 
+            userId={user.id}
+            userRole={profile?.role}
+          />
         </div>
 
         {/* Success Stories */}
