@@ -5,33 +5,35 @@ import { PaystackButton } from "./PaystackButton";
 
 const plans = [
   {
-    name: "Premium Mensuel",
-    price: 25000,
+    name: "Premium Test",
+    price: 100, // 1€ en test mode
     period: "mois",
-    description: "Accès complet aux fonctionnalités premium",
+    description: "Version test complète à 1€",
     features: [
-      "Visibilité renforcée des projets",
-      "Accès complet aux informations d'investisseurs",
-      "Matching avancé",
-      "Statistiques détaillées",
-      "Support prioritaire",
-      "Notifications en temps réel",
-    ],
-    popular: false,
-  },
-  {
-    name: "Premium Annuel",
-    price: 250000,
-    period: "an",
-    description: "2 mois offerts avec l'abonnement annuel",
-    features: [
-      "Toutes les fonctionnalités Premium Mensuel",
-      "2 mois gratuits (économie de 50,000 NGN)",
-      "Accès bêta aux nouvelles fonctionnalités",
-      "Consultation gratuite avec un expert",
-      "Rapport mensuel personnalisé",
+      "✨ Accès complet pendant 30 jours",
+      "🚀 Visibilité maximale des projets",
+      "🤝 Matching IA avancé",
+      "📊 Analytics exclusifs",
+      "💬 Support prioritaire 24/7",
+      "🔔 Notifications premium",
+      "🎯 Recommandations personnalisées",
     ],
     popular: true,
+  },
+  {
+    name: "Premium Starter",
+    price: 2500, // 25€ environ
+    period: "mois",
+    description: "Pour commencer son aventure",
+    features: [
+      "🔥 Toutes les fonctionnalités Premium Test",
+      "💎 Badge exclusif",
+      "📈 Statistiques avancées",
+      "🎬 Vidéos pitch prioritaires",
+      "🤖 Assistant IA personnel",
+      "🌟 Profil vérifié",
+    ],
+    popular: false,
   },
 ];
 
