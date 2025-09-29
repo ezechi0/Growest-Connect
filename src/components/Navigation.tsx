@@ -14,10 +14,13 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useUserRole } from "@/hooks/useUserRole";
+import { useSubscription } from "@/hooks/useSubscription";
+import { PremiumBadge } from "@/components/premium/PremiumBadge";
 import { Menu, LogOut, User, Settings, Home, Target, Briefcase, TrendingUp, BarChart3, Crown, Shield } from "lucide-react";
 
 const Navigation = () => {
   const { user, profile, isAdmin, isKycApproved } = useUserRole();
+  const { premiumPlan } = useSubscription(user?.id);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -124,24 +127,29 @@ const Navigation = () => {
                          )}
                        </Button>
                      </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56" align="end">
-                       <div className="flex items-center justify-start gap-2 p-2">
-                         <div className="flex flex-col space-y-1 leading-none">
-                           <p className="font-medium text-sm">
-                             {profile?.full_name || user?.email}
-                           </p>
-                           <p className="text-xs text-muted-foreground">
-                             {profile?.user_type === 'entrepreneur' ? 'Porteur de projet' : 
-                              profile?.user_type === 'investor' ? 'Investisseur' : 
-                              'Utilisateur'}
-                           </p>
-                         </div>
-                         {isAdmin() && (
-                           <Badge variant="secondary" className="text-xs">
-                             Admin
-                           </Badge>
-                         )}
-                       </div>
+                     <DropdownMenuContent className="w-56" align="end">
+                        <div className="flex items-center justify-start gap-2 p-2">
+                          <div className="flex flex-col space-y-1 leading-none">
+                            <p className="font-medium text-sm">
+                              {profile?.full_name || user?.email}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {profile?.user_type === 'entrepreneur' ? 'Porteur de projet' : 
+                               profile?.user_type === 'investor' ? 'Investisseur' : 
+                               'Utilisateur'}
+                            </p>
+                          </div>
+                          <div className="flex flex-col gap-1">
+                            {isAdmin() && (
+                              <Badge variant="secondary" className="text-xs">
+                                Admin
+                              </Badge>
+                            )}
+                            {premiumPlan && (
+                              <PremiumBadge plan={premiumPlan} size="sm" />
+                            )}
+                          </div>
+                        </div>
                       <DropdownMenuSeparator />
                        <DropdownMenuItem asChild>
                          <Link to="/profile" className="flex items-center">
@@ -192,16 +200,21 @@ const Navigation = () => {
                              <p className="font-medium">
                                {profile?.full_name || user?.email}
                              </p>
-                             <p className="text-sm text-muted-foreground">
-                               {profile?.user_type === 'entrepreneur' ? 'Porteur de projet' : 
-                                profile?.user_type === 'investor' ? 'Investisseur' : 
-                                'Utilisateur'}
-                             </p>
-                             {!isKycApproved() && profile?.kyc_status !== 'approved' && (
-                               <Badge variant="outline" className="text-xs mt-1">
-                                 KYC en cours
-                               </Badge>
-                             )}
+                              <p className="text-sm text-muted-foreground">
+                                {profile?.user_type === 'entrepreneur' ? 'Porteur de projet' : 
+                                 profile?.user_type === 'investor' ? 'Investisseur' : 
+                                 'Utilisateur'}
+                              </p>
+                              <div className="flex gap-2 mt-1">
+                                {!isKycApproved() && profile?.kyc_status !== 'approved' && (
+                                  <Badge variant="outline" className="text-xs">
+                                    KYC en cours
+                                  </Badge>
+                                )}
+                                {premiumPlan && (
+                                  <PremiumBadge plan={premiumPlan} size="sm" />
+                                )}
+                              </div>
                            </div>
                          </div>
 

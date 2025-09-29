@@ -9,6 +9,7 @@ import { BarChart3, TrendingUp, Users, Eye, MessageSquare, Crown, Star, DollarSi
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { useUserRole } from "@/hooks/useUserRole";
+import { useSubscription } from "@/hooks/useSubscription";
 import { AdminDashboard } from "@/components/admin/AdminDashboard";
 import { InvestorDashboard } from "@/components/investor/InvestorDashboard";
 

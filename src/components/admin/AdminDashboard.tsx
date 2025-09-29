@@ -12,6 +12,9 @@ import { PayoutManagement } from './PayoutManagement';
 import { DataSeeder } from '@/components/admin/DataSeeder';
 import { UsageMonitoring } from '@/components/analytics/UsageMonitoring';
 import { ProductionChecklist } from '@/components/deployment/ProductionChecklist';
+import { SecurityChecklist } from '@/components/security/SecurityChecklist';
+import { SystemHealth } from '@/components/monitoring/SystemHealth';
+import { FinalSecurityReport } from '@/components/security/FinalSecurityReport';
 import {
   Dialog,
   DialogContent,
@@ -439,6 +442,10 @@ export const AdminDashboard: React.FC = () => {
                 <PayoutManagement />
               </TabsContent>
             </Tabs>
+          </TabsContent>
+          <TabsContent value="security" className="space-y-6">
+            <FinalSecurityReport />
+            <SecurityChecklist />
           </TabsContent>
         </Tabs>
       </div>

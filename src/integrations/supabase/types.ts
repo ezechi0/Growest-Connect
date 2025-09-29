@@ -753,6 +753,10 @@ export type Database = {
           total_investors: number
         }[]
       }
+      increment_project_funding: {
+        Args: { amount: number; project_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
