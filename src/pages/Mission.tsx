@@ -14,12 +14,15 @@ const Mission = () => {
           
           <div className="relative z-10 animate-fade-in">
             <Badge className="mb-6 px-6 py-2 text-lg primary-gradient text-white border-0 shadow-lg" variant="secondary">Notre Mission</Badge>
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-8 leading-tight">
-              Démocratiser l'Accès au <span className="gradient-text">Financement</span> en Afrique
+            <h1 className="text-6xl md:text-7xl font-bold mb-8 leading-tight">
+              🌍 Révolutionner l'<span className="gradient-text animate-pulse">Écosystème</span> 
+              <br />
+              Entrepreneurial Africain 🚀
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              Nous croyons que chaque idée innovante mérite sa chance. Notre mission est de créer un pont 
-              magique entre les porteurs de projets visionnaires et les investisseurs qui partagent leur passion pour l'innovation.
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium">
+              💫 Nous connectons les visionnaires aux capitaux pour créer la prochaine génération d'unicornes africaines !
+              <br />
+              🔥 Ensemble, transformons chaque rêve en empire économique !
             </p>
           </div>
         </div>

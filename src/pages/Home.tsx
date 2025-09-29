@@ -18,25 +18,26 @@ const Home = () => {
         <div className="container mx-auto px-4 py-20 relative z-10">
           <div className="max-w-5xl mx-auto text-center text-white">
             <div className="animate-fade-in">
-              <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight">
-                Connectez Vos <span className="text-transparent bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text">Projets</span> Aux{" "}
-                <span className="text-transparent bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text">Investisseurs</span>
+              <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight">
+                🚀 Révolutionne Ton <span className="text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text animate-pulse">Future</span>
+                <br />
+                avec <span className="text-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text animate-pulse">Growest</span>
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-4xl mx-auto">
-                La plateforme mobile SaaS qui révolutionne le financement participatif en Afrique.
+              <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto font-medium">
+                💫 La plateforme ultra-moderne qui connecte les visionnaires aux investisseurs
                 <br className="hidden md:block" />
-                Présentez vos projets innovants et trouvez les investisseurs qui croient en votre vision.
+                🌟 Transforme tes rêves en empire, dès maintenant !
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up" style={{animationDelay: '0.3s'}}>
-              <Button size="lg" className="text-lg px-10 py-4 bg-white text-primary hover:bg-gray-100 hover:scale-105 transition-all shadow-2xl hover-lift" asChild>
+            <div className="flex flex-col sm:flex-row gap-8 justify-center animate-slide-up" style={{animationDelay: '0.3s'}}>
+              <Button size="lg" className="text-xl px-12 py-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-yellow-500/50 neo-card animate-pulse" asChild>
                 <Link to="/auth">
-                  Commencer Maintenant <ArrowRight className="ml-2" />
+                  🎯 Devenir Légendaire <ArrowRight className="ml-2" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-10 py-4 border-white/30 text-white hover:bg-white/10 hover:scale-105 transition-all backdrop-blur-sm" asChild>
-                <Link to="/projects">Découvrir les Projets</Link>
+              <Button size="lg" variant="outline" className="text-xl px-12 py-6 border-2 border-white/40 text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 backdrop-blur-lg glass-card font-bold" asChild>
+                <Link to="/projects">🔍 Explorer l'Écosystème</Link>
               </Button>
             </div>
           </div>
@@ -62,44 +63,47 @@ const Home = () => {
         </div>
         
         <div className="grid md:grid-cols-3 gap-8 relative z-10">
-          <Card className="text-center hover-lift card-gradient border-0 shadow-xl animate-scale-in" style={{animationDelay: '0.2s'}}>
+          <Card className="text-center hover-lift neo-card border-0 shadow-2xl animate-scale-in glow-effect" style={{animationDelay: '0.2s'}}>
             <CardHeader className="pb-4">
-              <div className="w-16 h-16 primary-gradient rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <Target className="w-8 h-8 text-white" />
+              <div className="w-20 h-20 primary-gradient rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl animate-float pulse-glow">
+                <Target className="w-10 h-10 text-white" />
               </div>
-              <CardTitle className="text-2xl mb-4">Matching Intelligent</CardTitle>
+              <CardTitle className="text-2xl mb-4 gradient-text">🎯 Matching IA Ultra-Précis</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-base leading-relaxed">
-                Notre système connecte automatiquement les projets aux investisseurs selon leurs critères et préférences, maximisant les chances de succès.
+              <CardDescription className="text-base leading-relaxed font-medium">
+                Notre IA révolutionnaire connecte automatiquement tes projets aux investisseurs parfaits. 
+                Résultats garantis en moins de 24h ! 🚀
               </CardDescription>
             </CardContent>
           </Card>
 
-          <Card className="text-center hover-lift card-gradient border-0 shadow-xl animate-scale-in" style={{animationDelay: '0.4s'}}>
+          <Card className="text-center hover-lift neo-card border-0 shadow-2xl animate-scale-in glow-effect" style={{animationDelay: '0.4s'}}>
             <CardHeader className="pb-4">
-              <div className="w-16 h-16 accent-gradient rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <Users className="w-8 h-8 text-white" />
+              <div className="w-20 h-20 accent-gradient rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl animate-float pulse-glow">
+                <Users className="w-10 h-10 text-white" />
               </div>
-              <CardTitle className="text-2xl mb-4">Réseau Vérifié</CardTitle>
+              <CardTitle className="text-2xl mb-4 gradient-text">🛡️ Réseau Elite Vérifié</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-base leading-relaxed">
-                Tous nos utilisateurs sont vérifiés via notre système KYC avancé pour garantir la sécurité et la crédibilité des transactions.
+              <CardDescription className="text-base leading-relaxed font-medium">
+                Rejoins une communauté exclusive d'entrepreneurs et d'investisseurs vérifiés. 
+                100% sécurisé, 0% arnaque ! 🔒
               </CardDescription>
             </CardContent>
           </Card>
 
-          <Card className="text-center hover-lift card-gradient border-0 shadow-xl animate-scale-in" style={{animationDelay: '0.6s'}}>
+          <Card className="text-center hover-lift neo-card border-0 shadow-2xl animate-scale-in glow-effect" style={{animationDelay: '0.6s'}}>
             <CardHeader className="pb-4">
-              <div className="w-16 h-16 primary-gradient rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <Zap className="w-8 h-8 text-white" />
+              <div className="w-20 h-20 primary-gradient rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl animate-float pulse-glow">
+                <Zap className="w-10 h-10 text-white" />
               </div>
-              <CardTitle className="text-2xl mb-4">Plateforme Sécurisée</CardTitle>
+              <CardTitle className="text-2xl mb-4 gradient-text">⚡ Sécurité Niveau NASA</CardTitle>
             </CardHeader>
             <CardContent>
-              <CardDescription className="text-base leading-relaxed">
-                Messagerie cryptée, paiements sécurisés et protection complète de vos données avec les meilleurs standards de sécurité.
+              <CardDescription className="text-base leading-relaxed font-medium">
+                Cryptage militaire, paiements ultra-sécurisés et protection maximale de tes données. 
+                Ta réussite, notre obsession ! 🛡️
               </CardDescription>
             </CardContent>
           </Card>
@@ -121,19 +125,23 @@ const Home = () => {
           
           <div className="container mx-auto px-4 text-center relative z-10">
             <div className="max-w-4xl mx-auto animate-bounce-in">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                Prêt à Transformer Votre <span className="text-yellow-300">Idée</span> en <span className="text-green-300">Réalité</span> ?
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
+                🔥 Prêt à Devenir la <span className="text-transparent bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-500 bg-clip-text animate-pulse">Légende</span> 
+                <br />
+                de Demain ? 🌟
               </h2>
-              <p className="text-white/90 text-xl mb-10 max-w-3xl mx-auto leading-relaxed">
-                Rejoignez des milliers d'entrepreneurs et d'investisseurs qui utilisent Growest Connect pour créer l'avenir de l'Afrique
+              <p className="text-white/90 text-xl mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+                💎 Rejoins + de 10,000 visionnaires qui utilisent Growest Connect pour bâtir l'empire africain de demain !
+                <br />
+                🚀 Ton succès commence ICI, MAINTENANT !
               </p>
-              <div className="space-y-4">
-                <Button size="lg" className="text-xl px-12 py-4 bg-white text-primary hover:bg-gray-100 hover:scale-105 transition-all shadow-2xl hover-lift" asChild>
+              <div className="space-y-6">
+                <Button size="lg" className="text-2xl px-16 py-6 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-black hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-purple-500/50 neo-card animate-bounce" asChild>
                   <Link to="/auth">
-                    Créer Mon Compte Gratuit
+                    🎯 REJOINDRE L'ÉLITE GRATUIT
                   </Link>
                 </Button>
-                <p className="text-white/70 text-sm">Gratuit pour toujours • Pas de carte de crédit requise</p>
+                <p className="text-white/80 text-lg font-bold">💫 Gratuit à vie • Pas de CB • Résultats garantis 💫</p>
               </div>
             </div>
           </div>

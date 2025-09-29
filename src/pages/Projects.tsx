@@ -208,20 +208,22 @@ const Projects = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Découvrez les <span className="text-primary">Projets Innovants</span>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            🔍 Découvre les <span className="gradient-text animate-pulse">Projets d'Exception</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6">
-            Explorez une sélection de projets entrepreneuriaux prometteurs à travers l'Afrique
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
+            🌟 Explore une sélection épique de projets révolutionnaires qui vont changer l'Afrique. 
+            <br />
+            💎 Chaque projet ici est une opportunité en or !
           </p>
           
           {isEntrepreneur() && (
             <Button 
               onClick={() => navigate('/create-project')}
-              className="bg-primary hover:bg-primary/90"
+              className="text-lg px-8 py-4 primary-gradient hover:scale-110 transition-all duration-300 shadow-lg neo-card"
             >
-              <Plus className="w-4 h-4 mr-2" />
-              Créer un projet
+              <Plus className="w-5 h-5 mr-2" />
+              🚀 Créer Mon Projet de Rêve
             </Button>
           )}
         </div>
@@ -264,7 +266,7 @@ const Projects = () => {
             return (
               <Card 
                 key={project.id} 
-                className="hover:shadow-lg transition-shadow cursor-pointer"
+                className="hover-lift neo-card border-0 shadow-xl transition-all duration-300 cursor-pointer glow-effect"
                 onClick={() => navigate(`/project/${project.id}`)}
               >
                 <CardHeader className="pb-4">
