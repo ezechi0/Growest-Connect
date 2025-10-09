@@ -884,6 +884,21 @@ export type Database = {
           total_investors: number
         }[]
       }
+      get_safe_profile: {
+        Args: { profile_id: string }
+        Returns: {
+          avatar_url: string
+          bio: string
+          company: string
+          full_name: string
+          id: string
+          is_public: boolean
+          is_verified: boolean
+          location: string
+          user_type: string
+          website: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

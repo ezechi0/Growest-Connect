@@ -57,7 +57,8 @@ export const useUserRole = () => {
 
   const fetchProfile = async (userId: string) => {
     try {
-      // Fetch profile data
+      // SECURITY: Fetch own profile data - this is safe because userId is the authenticated user's ID
+      // This is the ONLY place where select('*') is acceptable for profiles
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
@@ -99,6 +100,7 @@ export const useUserRole = () => {
     if (!user) return { error: 'No user logged in' };
 
     try {
+      // SECURITY: User can only update their own profile
       const { data, error } = await supabase
         .from('profiles')
         .update(updates)

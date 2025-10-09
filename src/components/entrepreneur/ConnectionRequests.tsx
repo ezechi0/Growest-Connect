@@ -70,6 +70,7 @@ export const ConnectionRequests: React.FC<ConnectionRequestsProps> = ({ entrepre
       // Charger les profils et projets séparément
       const requestsWithDetails = await Promise.all((data || []).map(async (request) => {
         const [profileResult, projectResult] = await Promise.all([
+          // SECURITY: Only select safe fields, never include phone
           supabase
             .from('profiles')
             .select('full_name, company, avatar_url')

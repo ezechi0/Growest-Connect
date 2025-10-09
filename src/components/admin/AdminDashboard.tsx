@@ -83,6 +83,7 @@ export const AdminDashboard: React.FC = () => {
   const fetchAdminData = async () => {
     try {
       // Récupérer les KYC en attente
+      // SECURITY: Admin access includes KYC fields but explicitly excludes phone
       const { data: kycData, error: kycError } = await supabase
         .from('profiles')
         .select('id, full_name, user_type, company, kyc_status, kyc_document_url, created_at')

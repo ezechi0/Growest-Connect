@@ -65,6 +65,7 @@ export const PayoutManagement: React.FC = () => {
       const payoutsWithRelations = await Promise.all(
         (data || []).map(async (payout) => {
           const [profileData, projectData] = await Promise.all([
+            // SECURITY: Only select safe fields for entrepreneur profiles
             supabase
               .from('profiles')
               .select('full_name')

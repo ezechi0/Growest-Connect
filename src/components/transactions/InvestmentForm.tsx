@@ -83,6 +83,7 @@ export const InvestmentForm: React.FC<InvestmentFormProps> = ({
       setLoading(true);
 
       // Obtenir l'email de l'utilisateur
+      // SECURITY: Selecting own profile data only
       const { data: profile } = await supabase
         .from('profiles')
         .select('full_name')
