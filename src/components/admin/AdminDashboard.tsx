@@ -15,6 +15,7 @@ import { ProductionChecklist } from '@/components/deployment/ProductionChecklist
 import { SecurityChecklist } from '@/components/security/SecurityChecklist';
 import { SystemHealth } from '@/components/monitoring/SystemHealth';
 import { FinalSecurityReport } from '@/components/security/FinalSecurityReport';
+import { UserManagement } from './UserManagement';
 import {
   Dialog,
   DialogContent,
@@ -192,8 +193,9 @@ export const AdminDashboard: React.FC = () => {
         </div>
 
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
+            <TabsTrigger value="users">Utilisateurs</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="data">Données Test</TabsTrigger>
             <TabsTrigger value="deployment">Déploiement</TabsTrigger>
@@ -275,6 +277,10 @@ export const AdminDashboard: React.FC = () => {
                 </Button>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="users">
+            <UserManagement />
           </TabsContent>
 
           <TabsContent value="analytics">
