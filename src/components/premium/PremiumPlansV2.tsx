@@ -18,8 +18,8 @@ const plans = [
     id: 'start',
     name: 'Premium Start',
     subtitle: 'Pour Fondateurs',
-    price: 25000,
-    originalPrice: 30000,
+    price: 15000,
+    originalPrice: 20000,
     period: 'mois',
     description: 'Boostez votre visibilité et trouvez des investisseurs',
     icon: Star,
@@ -42,8 +42,8 @@ const plans = [
     id: 'capital',
     name: 'Premium Capital',
     subtitle: 'Pour Investisseurs',
-    price: 35000,
-    originalPrice: 40000,
+    price: 25000,
+    originalPrice: 30000,
     period: 'mois',
     description: 'Découvrez les meilleures opportunités d\'investissement',
     icon: Zap,
@@ -67,8 +67,8 @@ const plans = [
     id: 'pro_plus',
     name: 'Pro+',
     subtitle: 'Pour Corporates',
-    price: 99000,
-    originalPrice: 120000,
+    price: 65000,
+    originalPrice: 80000,
     period: 'mois',
     description: 'Solution complète pour institutions et fonds',
     icon: Crown,
@@ -284,7 +284,7 @@ export const PremiumPlansV2 = ({ userEmail, userId, userRole, currentPlan }: Pre
                 <div className="mt-6 space-y-2">
                   <div className="flex items-center justify-center gap-2">
                     <span className="text-2xl text-muted-foreground line-through">
-                      ₦{plan.originalPrice.toLocaleString()}
+                      {plan.originalPrice.toLocaleString()} FCFA
                     </span>
                     <Badge variant="destructive" className="text-xs">
                       -{savings}%
@@ -292,12 +292,12 @@ export const PremiumPlansV2 = ({ userEmail, userId, userRole, currentPlan }: Pre
                   </div>
                   <div className="flex items-baseline justify-center">
                     <span className="text-4xl font-bold text-foreground">
-                      ₦{plan.price.toLocaleString()}
+                      {plan.price.toLocaleString()} FCFA
                     </span>
                     <span className="text-muted-foreground text-sm ml-2">/{plan.period}</span>
                   </div>
                   <p className="text-xs text-accent font-medium">
-                    Économisez ₦{(plan.originalPrice - plan.price).toLocaleString()}/mois
+                    Économisez {(plan.originalPrice - plan.price).toLocaleString()} FCFA/mois
                   </p>
                 </div>
               </CardHeader>
@@ -357,7 +357,7 @@ export const PremiumPlansV2 = ({ userEmail, userId, userRole, currentPlan }: Pre
             </div>
             <div className="flex flex-col items-center gap-2">
               <TrendingUp className="h-8 w-8 text-accent" />
-              <h4 className="font-semibold">₦2B+ Levés</h4>
+              <h4 className="font-semibold">2 Milliards FCFA+ Levés</h4>
               <p className="text-sm text-muted-foreground">Grâce à notre plateforme</p>
             </div>
           </div>

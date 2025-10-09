@@ -57,18 +57,37 @@ export const useUserRole = () => {
 
   const fetchProfile = async (userId: string) => {
     try {
-      const { data, error } = await supabase
+      // Fetch profile data
+      const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single();
 
-      if (error) {
-        console.error('Error fetching profile:', error);
-      } else {
-        // Type assertion pour s'assurer de la compatibilité
-        setProfile(data as UserProfile);
+      if (profileError) {
+        console.error('Error fetching profile:', profileError);
+        setLoading(false);
+        return;
       }
+
+      // Fetch user role from secure user_roles table
+      const { data: roleData, error: roleError } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if (roleError) {
+        console.error('Error fetching user role:', roleError);
+      }
+
+      // Combine profile data with role
+      const completeProfile = {
+        ...profileData,
+        role: roleData?.role || 'entrepreneur' // Default to entrepreneur if no role found
+      } as UserProfile;
+
+      setProfile(completeProfile);
     } catch (error) {
       console.error('Error fetching profile:', error);
     } finally {

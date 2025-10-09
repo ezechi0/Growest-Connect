@@ -35,7 +35,7 @@ const plans = [
   {
     id: 'premium',
     name: 'Premium',
-    price: 29,
+    price: 15000,
     period: '/mois',
     description: 'Pour les investisseurs et entrepreneurs sérieux',
     icon: Zap,
@@ -53,7 +53,7 @@ const plans = [
   {
     id: 'enterprise',
     name: 'Enterprise',
-    price: 99,
+    price: 65000,
     period: '/mois',
     description: 'Solution complète pour institutions',
     icon: Crown,
@@ -165,7 +165,7 @@ export const SubscriptionPlans = ({ currentPlan = 'basic', userEmail, userId }: 
               
               <div className="mt-4">
                 <span className="text-3xl font-bold text-foreground">
-                  {plan.price === 0 ? 'Gratuit' : `${plan.price}€`}
+                  {plan.price === 0 ? 'Gratuit' : `${plan.price.toLocaleString()} FCFA`}
                 </span>
                 {plan.period && (
                   <span className="text-muted-foreground text-sm">{plan.period}</span>

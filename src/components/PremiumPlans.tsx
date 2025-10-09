@@ -6,9 +6,9 @@ import { PaystackButton } from "./PaystackButton";
 const plans = [
   {
     name: "Premium Test",
-    price: 100, // 1€ en test mode
+    price: 1000, // Prix test en FCFA
     period: "mois",
-    description: "Version test complète à 1€",
+    description: "Version test complète",
     features: [
       "✨ Accès complet pendant 30 jours",
       "🚀 Visibilité maximale des projets",
@@ -22,7 +22,7 @@ const plans = [
   },
   {
     name: "Premium Starter",
-    price: 2500, // 25€ environ
+    price: 15000, // ~25€ en FCFA
     period: "mois",
     description: "Pour commencer son aventure",
     features: [
@@ -60,7 +60,7 @@ export const PremiumPlans = ({ userEmail, userId }: PremiumPlansProps) => {
             <CardDescription>{plan.description}</CardDescription>
             <div className="mt-4">
               <span className="text-3xl font-bold text-foreground">
-                ₦{plan.price.toLocaleString()}
+                {plan.price.toLocaleString()} FCFA
               </span>
               <span className="text-muted-foreground">/{plan.period}</span>
             </div>
