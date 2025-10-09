@@ -12,6 +12,15 @@ const Home = () => {
         {/* Effet de grille subtil */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8882_1px,transparent_1px),linear-gradient(to_bottom,#8882_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
         
+        {/* Bannière Beta */}
+        <div className="bg-gradient-to-r from-primary to-accent py-2 relative">
+          <div className="container mx-auto px-4 text-center">
+            <p className="text-white text-sm font-medium">
+              🎉 Version Beta • Aidez-nous à améliorer la plateforme avec vos retours
+            </p>
+          </div>
+        </div>
+        
         <div className="container mx-auto px-4 py-24 md:py-32 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             {/* Badge de confiance */}
