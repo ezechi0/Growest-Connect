@@ -10,6 +10,7 @@ import { useUserRole } from "@/hooks/useUserRole";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { InvestorCatalog } from "@/components/investor/InvestorCatalog";
+import { formatCurrency } from "@/lib/currency";
 
 interface Project {
   id: string;
@@ -305,10 +306,10 @@ const Projects = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">
-                        Objectif: €{project.funding_goal.toLocaleString()}
+                        Objectif: {formatCurrency(project.funding_goal)}
                       </span>
                       <span className="font-medium">
-                        €{project.current_funding.toLocaleString()}
+                        {formatCurrency(project.current_funding)}
                       </span>
                     </div>
                     <div className="w-full bg-secondary rounded-full h-2">

@@ -87,8 +87,8 @@ const Home = () => {
                 <div className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Projets financés</div>
               </div>
               <div className="group hover:scale-110 transition-transform duration-300" style={{ animationDelay: '0.2s' }}>
-                <div className="text-4xl md:text-5xl font-black bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2 animate-fade-in">€2M+</div>
-                <div className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Investis</div>
+                <div className="text-4xl md:text-5xl font-black bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2 animate-fade-in">1Mds+</div>
+                <div className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">FCFA Investis</div>
               </div>
             </div>
           </div>

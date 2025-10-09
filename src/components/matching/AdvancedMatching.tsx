@@ -24,8 +24,10 @@ import {
   Target,
   Zap,
   Clock,
-  Award
+  Award,
+  Battery
 } from 'lucide-react';
+import { formatCurrency } from '@/lib/currency';
 
 interface MatchPreferences {
   sectors: string[];
@@ -216,7 +218,7 @@ export const AdvancedMatching: React.FC<AdvancedMatchingProps> = ({ userId, user
                   {/* Fourchette de financement */}
                   <div className="space-y-3">
                     <Label>
-                      Fourchette de financement: €{preferences.fundingRange[0].toLocaleString()} - €{preferences.fundingRange[1].toLocaleString()}
+                      Fourchette de financement: {formatCurrency(preferences.fundingRange[0])} - {formatCurrency(preferences.fundingRange[1])}
                     </Label>
                     <div className="px-3">
                       <Slider

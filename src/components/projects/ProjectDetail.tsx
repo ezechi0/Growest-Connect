@@ -31,6 +31,7 @@ import {
   Eye,
   Download
 } from 'lucide-react';
+import { formatCurrency } from '@/lib/currency';
 
 interface Project {
   id: string;
@@ -462,11 +463,11 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label className="text-sm text-muted-foreground">Objectif de financement</Label>
-                      <p className="text-2xl font-bold">€{project.funding_goal.toLocaleString()}</p>
+                      <p className="text-2xl font-bold">{formatCurrency(project.funding_goal)}</p>
                     </div>
                     <div>
                       <Label className="text-sm text-muted-foreground">Investissement minimum</Label>
-                      <p className="text-xl font-semibold">€{project.min_investment.toLocaleString()}</p>
+                      <p className="text-xl font-semibold">{formatCurrency(project.min_investment)}</p>
                     </div>
                   </div>
 
@@ -548,8 +549,8 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
             <CardContent className="space-y-4">
               <div>
                 <div className="flex justify-between text-sm mb-2">
-                  <span>€{project.current_funding.toLocaleString()}</span>
-                  <span>€{project.funding_goal.toLocaleString()}</span>
+                  <span>{formatCurrency(project.current_funding)}</span>
+                  <span>{formatCurrency(project.funding_goal)}</span>
                 </div>
                 <Progress value={calculateProgress()} className="h-3" />
                 <p className="text-sm text-muted-foreground mt-2">
@@ -561,7 +562,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
                 <div className="pt-3 border-t">
                   <p className="text-sm font-medium">{interestStats.total_interests} investisseur(s) intéressé(s)</p>
                   <p className="text-sm text-muted-foreground">
-                    €{interestStats.total_potential_investment.toLocaleString()} d'intérêt potentiel
+                    {formatCurrency(interestStats.total_potential_investment)} d'intérêt potentiel
                   </p>
                 </div>
               )}

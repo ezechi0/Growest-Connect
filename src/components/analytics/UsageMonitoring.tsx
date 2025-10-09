@@ -233,7 +233,7 @@ export const UsageMonitoring: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Volume Investi</p>
-                <p className="text-2xl font-bold">{analytics.totalInvestments.toLocaleString()}€</p>
+                <p className="text-2xl font-bold">{analytics.totalInvestments.toLocaleString()} FCFA</p>
                 <p className="text-xs text-green-600 flex items-center">
                   <ArrowUpRight className="h-3 w-3 mr-1" />
                   Performance forte
@@ -281,7 +281,7 @@ export const UsageMonitoring: React.FC = () => {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="week" />
                   <YAxis />
-                  <Tooltip formatter={(value) => [`${Number(value).toLocaleString()}€`, 'Montant']} />
+                  <Tooltip formatter={(value) => [`${Number(value).toLocaleString()} FCFA`, 'Montant']} />
                   <Line type="monotone" dataKey="amount" stroke="#8884d8" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
@@ -357,7 +357,7 @@ export const UsageMonitoring: React.FC = () => {
                     </div>
                     <div className="text-right space-y-1">
                       <p className="text-sm font-medium">
-                        {project.current_funding?.toLocaleString()}€ / {project.funding_goal?.toLocaleString()}€
+                        {project.current_funding?.toLocaleString()} / {project.funding_goal?.toLocaleString()} FCFA
                       </p>
                       <Progress 
                         value={(project.current_funding / project.funding_goal) * 100} 
@@ -400,7 +400,7 @@ export const UsageMonitoring: React.FC = () => {
             <div className="p-4 bg-yellow-50 rounded-lg">
               <h4 className="font-medium text-yellow-900">Volume Investissements</h4>
               <p className="text-sm text-yellow-700 mt-2">
-                {analytics.totalInvestments.toLocaleString()}€ investis. 
+                {analytics.totalInvestments.toLocaleString()} FCFA investis. 
                 Optimiser le processus de paiement pour augmenter les conversions.
               </p>
             </div>

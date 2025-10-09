@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { ProjectInterestModal } from "@/components/projects/ProjectInterestModal";
 import { ConnectionRequestModal } from "./ConnectionRequestModal";
+import { formatCurrency } from "@/lib/currency";
 
 interface Project {
   id: string;
@@ -364,7 +365,7 @@ export const InvestorCatalog = () => {
             {/* Ligne 2: Sliders */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="space-y-2">
-                <Label>Investissement minimum: €{filters.minInvestment[0].toLocaleString()}</Label>
+                <Label>Investissement minimum: {formatCurrency(filters.minInvestment[0])}</Label>
                 <Slider
                   value={filters.minInvestment}
                   onValueChange={(value) => updateFilter('minInvestment', value)}
@@ -376,7 +377,7 @@ export const InvestorCatalog = () => {
               </div>
 
               <div className="space-y-2">
-                <Label>Financement max: €{filters.maxFunding[0].toLocaleString()}</Label>
+                <Label>Financement max: {formatCurrency(filters.maxFunding[0])}</Label>
                 <Slider
                   value={filters.maxFunding}
                   onValueChange={(value) => updateFilter('maxFunding', value)}
@@ -477,12 +478,12 @@ export const InvestorCatalog = () => {
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-blue-700">Min. investissement:</span>
-                      <span className="font-medium text-blue-900">€{project.min_investment.toLocaleString()}</span>
+                      <span className="font-medium text-blue-900">{formatCurrency(project.min_investment)}</span>
                     </div>
                     {project.max_investment && (
                       <div className="flex justify-between text-sm">
                         <span className="text-blue-700">Max. investissement:</span>
-                        <span className="font-medium text-blue-900">€{project.max_investment.toLocaleString()}</span>
+                        <span className="font-medium text-blue-900">{formatCurrency(project.max_investment)}</span>
                       </div>
                     )}
                     {project.team_size && (
@@ -499,10 +500,10 @@ export const InvestorCatalog = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">
-                        Objectif: €{project.funding_goal.toLocaleString()}
+                        Objectif: {formatCurrency(project.funding_goal)}
                       </span>
                       <span className="font-medium">
-                        €{project.current_funding.toLocaleString()}
+                        {formatCurrency(project.current_funding)}
                       </span>
                     </div>
                     <div className="w-full bg-secondary rounded-full h-2">

@@ -23,6 +23,7 @@ import {
   FileText,
   Image as ImageIcon
 } from 'lucide-react';
+import { formatCurrency } from '@/lib/currency';
 
 interface ProjectData {
   title: string;
@@ -462,7 +463,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="funding_goal">Objectif de financement (€) *</Label>
+                <Label htmlFor="funding_goal">Objectif de financement (FCFA) *</Label>
                 <Input
                   id="funding_goal"
                   type="number"
@@ -472,7 +473,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="min_investment">Investissement minimum (€) *</Label>
+                <Label htmlFor="min_investment">Investissement minimum (FCFA) *</Label>
                 <Input
                   id="min_investment"
                   type="number"
@@ -484,7 +485,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="max_investment">Investissement maximum (€)</Label>
+              <Label htmlFor="max_investment">Investissement maximum (FCFA)</Label>
               <Input
                 id="max_investment"
                 type="number"

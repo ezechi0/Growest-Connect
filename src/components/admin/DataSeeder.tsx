@@ -193,10 +193,10 @@ export const DataSeeder: React.FC = () => {
             <div>
               <p className="font-medium text-primary">🚀 Projets:</p>
               <ul className="mt-1 space-y-1 text-muted-foreground">
-                <li>• EcoPackaging Revolution (250K€)</li>
-                <li>• AI Health Diagnostics (500K€)</li>
-                <li>• Smart Farm Network (180K€)</li>
-                <li>• FinTech Mobile Solutions (300K€)</li>
+                <li>• EcoPackaging Revolution (250K FCFA)</li>
+                <li>• AI Health Diagnostics (500K FCFA)</li>
+                <li>• Smart Farm Network (180K FCFA)</li>
+                <li>• FinTech Mobile Solutions (300K FCFA)</li>
               </ul>
             </div>
             <div>

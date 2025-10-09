@@ -284,7 +284,7 @@ const Profile = () => {
                     </div>
                     <div>
                       <Label className="text-sm text-muted-foreground">Fonds levés</Label>
-                      <div className="text-lg font-semibold">€{project.raised.toLocaleString()}</div>
+                      <div className="text-lg font-semibold">{project.raised.toLocaleString()} FCFA</div>
                     </div>
                     <div>
                       <Label className="text-sm text-muted-foreground">Investisseurs</Label>

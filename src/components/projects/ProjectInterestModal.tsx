@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useUserRole } from '@/hooks/useUserRole';
 import { TrendingUp, DollarSign, MessageSquare } from 'lucide-react';
+import { formatCurrency } from '@/lib/currency';
 
 interface Project {
   id: string;
@@ -52,7 +53,7 @@ export const ProjectInterestModal: React.FC<ProjectInterestModalProps> = ({
     if (formData.investment_amount < project.min_investment) {
       toast({
         title: "Montant insuffisant",
-        description: `L'investissement minimum est de €${project.min_investment.toLocaleString()}`,
+        description: `L'investissement minimum est de ${formatCurrency(project.min_investment)}`,
         variant: "destructive"
       });
       return;
@@ -61,7 +62,7 @@ export const ProjectInterestModal: React.FC<ProjectInterestModalProps> = ({
     if (project.max_investment && formData.investment_amount > project.max_investment) {
       toast({
         title: "Montant trop élevé",
-        description: `L'investissement maximum est de €${project.max_investment.toLocaleString()}`,
+        description: `L'investissement maximum est de ${formatCurrency(project.max_investment)}`,
         variant: "destructive"
       });
       return;
@@ -156,7 +157,7 @@ export const ProjectInterestModal: React.FC<ProjectInterestModalProps> = ({
 
           {/* Montant d'investissement */}
           <div className="space-y-2">
-            <Label htmlFor="investment_amount">Montant d'investissement (€) *</Label>
+            <Label htmlFor="investment_amount">Montant d'investissement (FCFA) *</Label>
             <div className="relative">
               <DollarSign className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
@@ -168,12 +169,12 @@ export const ProjectInterestModal: React.FC<ProjectInterestModalProps> = ({
                 onChange={(e) => handleInputChange('investment_amount', parseInt(e.target.value))}
                 className="pl-10"
                 placeholder={project.min_investment.toString()}
-              />
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Minimum: €{project.min_investment.toLocaleString()}
-              {project.max_investment && ` • Maximum: €${project.max_investment.toLocaleString()}`}
-            </div>
+            />
+          </div>
+          <div className="text-sm text-muted-foreground">
+            Minimum: {formatCurrency(project.min_investment)}
+            {project.max_investment && ` • Maximum: ${formatCurrency(project.max_investment)}`}
+          </div>
           </div>
 
           {/* Message optionnel */}
