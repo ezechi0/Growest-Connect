@@ -204,26 +204,28 @@ const Projects = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background py-8">
+    <div className="min-h-screen bg-gradient-to-b from-background via-primary/5 to-background py-12">
       <div className="container mx-auto px-4">
-        {/* Header */}
+        {/* Header professionnel */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-            🔍 Découvre les <span className="gradient-text animate-pulse">Projets d'Exception</span>
+          <Badge variant="secondary" className="mb-4 px-4 py-1.5">
+            Catalogue de projets
+          </Badge>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+            Découvrez les <span className="gradient-text">projets innovants</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
-            🌟 Explore une sélection épique de projets révolutionnaires qui vont changer l'Afrique. 
-            <br />
-            💎 Chaque projet ici est une opportunité en or !
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Explorez une sélection de projets vérifiés et prometteurs qui transforment l'avenir entrepreneurial.
           </p>
           
           {isEntrepreneur() && (
             <Button 
               onClick={() => navigate('/create-project')}
-              className="text-lg px-8 py-4 primary-gradient hover:scale-110 transition-all duration-300 shadow-lg neo-card"
+              className="mt-6 px-6 py-3 shadow-md hover:shadow-lg transition-all"
+              size="lg"
             >
               <Plus className="w-5 h-5 mr-2" />
-              🚀 Créer Mon Projet de Rêve
+              Créer un projet
             </Button>
           )}
         </div>
@@ -266,7 +268,7 @@ const Projects = () => {
             return (
               <Card 
                 key={project.id} 
-                className="hover-lift neo-card border-0 shadow-xl transition-all duration-300 cursor-pointer glow-effect"
+                className="hover-lift border-2 shadow-lg transition-all duration-200 cursor-pointer hover:shadow-xl"
                 onClick={() => navigate(`/project/${project.id}`)}
               >
                 <CardHeader className="pb-4">
