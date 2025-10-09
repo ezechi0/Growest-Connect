@@ -127,7 +127,7 @@ export default function PaymentSuccess() {
               </>
             ) : (
               <>
-                <Button onClick={() => navigate('/premium')} className="w-full">
+                <Button onClick={() => navigate('/dashboard')} className="w-full">
                   Réessayer
                 </Button>
                 <Button onClick={() => navigate('/')} variant="outline" className="w-full">

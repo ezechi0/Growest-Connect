@@ -263,9 +263,9 @@ const Profile = () => {
                       <CardTitle>{project.title}</CardTitle>
                       <Badge variant="outline" className="mt-2">{project.status}</Badge>
                     </div>
-                    <Button variant="outline" size="sm">
-                      Gérer
-                    </Button>
+                <Button variant="outline" size="sm" onClick={() => navigate(`/project/${project.id}`)}>
+                  Gérer
+                </Button>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -302,7 +302,7 @@ const Profile = () => {
                 <p className="text-muted-foreground text-center mb-4">
                   Présentez votre idée innovante à notre communauté d'investisseurs
                 </p>
-                <Button>Nouveau Projet</Button>
+                <Button onClick={() => navigate('/create-project')}>Nouveau Projet</Button>
               </CardContent>
             </Card>
           </TabsContent>
@@ -318,7 +318,7 @@ const Profile = () => {
                         <CardTitle className="text-lg">{project.title}</CardTitle>
                         <Badge variant="secondary" className="mt-1">{project.sector}</Badge>
                       </div>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="ghost" size="sm" onClick={() => navigate(`/project/${project.id}`)}>
                         <Heart className="w-4 h-4 text-destructive fill-current" />
                       </Button>
                     </div>
@@ -384,7 +384,7 @@ const Profile = () => {
                       Accédez à des fonctionnalités avancées et une meilleure visibilité
                     </p>
                   </div>
-                  <Button variant="outline">Passer au Premium</Button>
+                  <Button variant="outline" onClick={() => navigate('/dashboard')}>Passer au Premium</Button>
                 </div>
                 <Separator />
                 <div className="flex justify-end gap-3">
