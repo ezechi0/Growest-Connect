@@ -5,11 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from "@supabase/supabase-js";
-import { BarChart3, TrendingUp, Users, Eye, MessageSquare, Crown, Star, DollarSign, Target, Calendar, Activity } from "lucide-react";
+import { BarChart3, TrendingUp, Users, Eye, MessageSquare, Star, DollarSign, Target, Calendar, Activity } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { useUserRole } from "@/hooks/useUserRole";
-import { useSubscription } from "@/hooks/useSubscription";
 import { AdminDashboard } from "@/components/admin/AdminDashboard";
 import { InvestorDashboard } from "@/components/investor/InvestorDashboard";
 
@@ -173,10 +172,6 @@ export default function Dashboard() {
               Suivez la performance de vos projets et votre activité
             </p>
           </div>
-          <Button onClick={() => navigate('/premium')} className="bg-accent hover:bg-accent/90">
-            <Crown className="w-4 h-4 mr-2" />
-            Passer Premium
-          </Button>
         </div>
 
         {/* Stats Cards */}
@@ -247,60 +242,28 @@ export default function Dashboard() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Progression du Financement</CardTitle>
-                  <CardDescription>
-                    Pourcentage moyen d'atteinte des objectifs
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span>Progression</span>
-                      <span>{stats.fundingProgress}%</span>
-                    </div>
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <div 
-                        className="bg-accent h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${Math.min(stats.fundingProgress, 100)}%` }}
-                      ></div>
-                    </div>
+            <Card>
+              <CardHeader>
+                <CardTitle>Progression du Financement</CardTitle>
+                <CardDescription>
+                  Pourcentage moyen d'atteinte des objectifs
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Progression</span>
+                    <span>{stats.fundingProgress}%</span>
                   </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Fonctionnalités Premium</CardTitle>
-                  <CardDescription>
-                    Débloquez des fonctionnalités avancées
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Matching IA avancé</span>
-                    <Badge variant="outline">Premium</Badge>
+                  <div className="w-full bg-secondary rounded-full h-2">
+                    <div 
+                      className="bg-accent h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${Math.min(stats.fundingProgress, 100)}%` }}
+                    ></div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Analytics détaillées</span>
-                    <Badge variant="outline">Premium</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Visibilité renforcée</span>
-                    <Badge variant="outline">Premium</Badge>
-                  </div>
-                  <Button 
-                    onClick={() => navigate('/premium')} 
-                    className="w-full mt-4"
-                    variant="outline"
-                  >
-                    Découvrir Premium
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="projects" className="space-y-6">
@@ -443,20 +406,17 @@ export default function Dashboard() {
           <TabsContent value="analytics" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Analytics Avancées</CardTitle>
+                <CardTitle>Analytics</CardTitle>
                 <CardDescription>
-                  Fonctionnalité Premium - Analysez en détail la performance
+                  Analysez la performance de vos projets
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8">
-                  <Crown className="h-12 w-12 text-accent mx-auto mb-4" />
+                  <BarChart3 className="h-12 w-12 text-primary mx-auto mb-4" />
                   <p className="text-muted-foreground mb-4">
-                    Débloquez des analytics détaillées avec Premium
+                    Les analytics détaillées seront bientôt disponibles
                   </p>
-                  <Button onClick={() => navigate('/premium')}>
-                    Passer Premium
-                  </Button>
                 </div>
               </CardContent>
             </Card>

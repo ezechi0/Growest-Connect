@@ -11,7 +11,6 @@ import Projects from "./pages/Projects";
 
 import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
-import Premium from "./pages/Premium";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import PaymentSuccess from "./pages/PaymentSuccess";
@@ -36,7 +35,6 @@ const App = () => (
               <Route path="/mission" element={<Mission />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/premium" element={<Premium />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/kyc-onboarding" element={<KycOnboarding />} />

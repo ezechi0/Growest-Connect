@@ -1,8 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { PremiumBadge } from "@/components/premium/PremiumBadge";
-import { useSubscription } from "@/hooks/useSubscription";
 import { MapPin, Building, Globe, Star } from "lucide-react";
 
 interface ProfileCardProps {
@@ -17,11 +15,9 @@ interface ProfileCardProps {
     role: string;
     is_verified?: boolean;
   };
-  showPremiumBadge?: boolean;
 }
 
-export const ProfileCard = ({ profile, showPremiumBadge = true }: ProfileCardProps) => {
-  const { premiumPlan } = useSubscription(profile.id);
+export const ProfileCard = ({ profile }: ProfileCardProps) => {
 
   const getInitials = (name: string) => {
     return name
@@ -83,10 +79,6 @@ export const ProfileCard = ({ profile, showPremiumBadge = true }: ProfileCardPro
                   <Badge variant={getRoleBadgeVariant(profile.role)} className="text-xs">
                     {getRoleLabel(profile.role)}
                   </Badge>
-                  
-                  {showPremiumBadge && premiumPlan && (
-                    <PremiumBadge plan={premiumPlan} size="sm" />
-                  )}
                 </div>
               </div>
             </div>
