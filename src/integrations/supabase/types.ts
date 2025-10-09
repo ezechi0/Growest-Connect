@@ -864,6 +864,10 @@ export type Database = {
         Args: { amount: number; commission_rate?: number }
         Returns: number
       }
+      can_access_sensitive_document: {
+        Args: { document_owner_id: string; user_id: string }
+        Returns: boolean
+      }
       generate_receipt_number: {
         Args: Record<PropertyKey, never>
         Returns: string
