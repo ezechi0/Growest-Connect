@@ -269,11 +269,11 @@ export const KycOnboarding: React.FC = () => {
                 <SelectValue placeholder="Sélectionnez votre fourchette" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1000-10000">1,000€ - 10,000€</SelectItem>
-                <SelectItem value="10000-50000">10,000€ - 50,000€</SelectItem>
-                <SelectItem value="50000-100000">50,000€ - 100,000€</SelectItem>
-                <SelectItem value="100000-500000">100,000€ - 500,000€</SelectItem>
-                <SelectItem value="500000+">Plus de 500,000€</SelectItem>
+                <SelectItem value="500000-5000000">500,000 - 5,000,000 FCFA</SelectItem>
+                <SelectItem value="5000000-25000000">5,000,000 - 25,000,000 FCFA</SelectItem>
+                <SelectItem value="25000000-50000000">25,000,000 - 50,000,000 FCFA</SelectItem>
+                <SelectItem value="50000000-250000000">50,000,000 - 250,000,000 FCFA</SelectItem>
+                <SelectItem value="250000000+">Plus de 250,000,000 FCFA</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -382,7 +382,7 @@ export const KycOnboarding: React.FC = () => {
           )}
           {formData.investment_range && (
             <div>
-              <span className="font-medium">Montant d'investissement:</span> {formData.investment_range}€
+              <span className="font-medium">Montant d'investissement:</span> {formData.investment_range}
             </div>
           )}
           {formData.experience_years && (
