@@ -67,31 +67,32 @@ const Navigation = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-primary-foreground" />
+          <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+            <div className="w-9 h-9 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shadow-md">
+              <TrendingUp className="w-5 h-5 text-white" />
             </div>
-            <span className="font-bold text-xl text-primary hidden sm:inline-block">
+            <span className="font-bold text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden sm:inline-block">
               Growest Connect
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-1">
             {navItems.map((item) => {
               const Icon = item.icon;
+              const active = isActive(item.href);
               return (
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors
-                    ${isActive(item.href) 
-                      ? "text-primary bg-secondary" 
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
+                    ${active
+                      ? "text-primary bg-primary/10" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/80"
                     }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -105,28 +106,33 @@ const Navigation = () => {
           <div className="flex items-center space-x-4">
             {user ? (
               <>
-                {/* Desktop User Menu */}
-                <div className="hidden md:block">
-                  <DropdownMenu>
-                     <DropdownMenuTrigger asChild>
-                       <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                         <Avatar className="h-10 w-10">
-                           <AvatarImage src={profile?.avatar_url || ""} />
-                           <AvatarFallback className="bg-primary text-primary-foreground">
-                             {getUserInitials()}
-                           </AvatarFallback>
-                         </Avatar>
-                         {!isKycApproved() && profile?.kyc_status !== 'approved' && (
-                           <Badge variant="outline" className="absolute -top-2 -right-2 text-xs p-1">
-                             KYC
-                           </Badge>
-                         )}
-                       </Button>
-                     </DropdownMenuTrigger>
-                     <DropdownMenuContent className="w-56" align="end">
-                        <div className="flex items-center justify-start gap-2 p-2">
-                         <div className="flex flex-col space-y-1 leading-none">
-                             <p className="font-medium text-sm">
+                 <div className="hidden md:block">
+                   <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:ring-2 hover:ring-primary/20 transition-all">
+                          <Avatar className="h-10 w-10 border-2 border-primary/20">
+                            <AvatarImage src={profile?.avatar_url || ""} />
+                            <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-white font-semibold">
+                              {getUserInitials()}
+                            </AvatarFallback>
+                          </Avatar>
+                          {!isKycApproved() && profile?.kyc_status !== 'approved' && (
+                            <Badge variant="outline" className="absolute -top-1 -right-1 text-[10px] px-1.5 py-0.5 border-primary/30">
+                              KYC
+                            </Badge>
+                          )}
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-64 p-2" align="end">
+                         <div className="flex items-center gap-3 p-3 border-b mb-2">
+                           <Avatar className="h-12 w-12 border-2 border-primary/20">
+                             <AvatarImage src={profile?.avatar_url || ""} />
+                             <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-white font-semibold">
+                               {getUserInitials()}
+                             </AvatarFallback>
+                           </Avatar>
+                           <div className="flex flex-col space-y-1">
+                             <p className="text-sm font-semibold leading-none">
                                {profile?.full_name || user?.email}
                              </p>
                              <p className="text-xs text-muted-foreground">
@@ -134,39 +140,48 @@ const Navigation = () => {
                                 profile?.user_type === 'investor' ? 'Investisseur' : 
                                 'Utilisateur'}
                              </p>
+                             <div className="flex gap-1.5 mt-1.5">
+                               {isAdmin() && (
+                                 <Badge variant="secondary" className="text-xs">
+                                   Admin
+                                 </Badge>
+                               )}
+                               {isKycApproved() && (
+                                 <Badge variant="default" className="text-xs">
+                                   ✓ Vérifié
+                                 </Badge>
+                               )}
+                             </div>
                            </div>
-                           {isAdmin() && (
-                             <Badge variant="secondary" className="text-xs">
-                               Admin
-                             </Badge>
-                           )}
-                        </div>
-                      <DropdownMenuSeparator />
-                       <DropdownMenuItem asChild>
-                         <Link to="/profile" className="flex items-center">
-                           <User className="mr-2 h-4 w-4" />
-                           <span>Profil</span>
-                         </Link>
+                         </div>
+                       <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild className="cursor-pointer py-2">
+                          <Link to="/profile" className="flex items-center">
+                            <User className="mr-3 h-4 w-4 text-muted-foreground" />
+                            <span>Mon Profil</span>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className="cursor-pointer py-2">
+                          <Link to="/dashboard" className="flex items-center">
+                            <BarChart3 className="mr-3 h-4 w-4 text-muted-foreground" />
+                            <span>Tableau de bord</span>
+                          </Link>
+                        </DropdownMenuItem>
+                        {isAdmin() && (
+                          <DropdownMenuItem asChild className="cursor-pointer py-2">
+                            <Link to="/admin" className="flex items-center">
+                              <Shield className="mr-3 h-4 w-4 text-muted-foreground" />
+                              <span>Administration</span>
+                            </Link>
+                          </DropdownMenuItem>
+                        )}
+                       <DropdownMenuSeparator className="my-2" />
+                       <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10 py-2">
+                         <LogOut className="mr-3 h-4 w-4" />
+                         <span>Déconnexion</span>
                        </DropdownMenuItem>
-                       {isAdmin() && (
-                         <DropdownMenuItem asChild>
-                           <Link to="/admin" className="flex items-center">
-                             <Shield className="mr-2 h-4 w-4" />
-                             <span>Administration</span>
-                           </Link>
-                         </DropdownMenuItem>
-                       )}
-                       <DropdownMenuItem>
-                         <Settings className="mr-2 h-4 w-4" />
-                         <span>Paramètres</span>
-                       </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={handleSignOut}>
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Déconnexion</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                     </DropdownMenuContent>
+                   </DropdownMenu>
                 </div>
 
                 {/* Mobile Menu */}
@@ -273,18 +288,18 @@ const Navigation = () => {
             ) : (
               <>
                 {/* Not authenticated */}
-                <div className="hidden md:flex items-center space-x-2">
-                  <Button variant="outline" asChild>
-                    <Link to="/auth">Connexion</Link>
+                <div className="hidden md:flex items-center space-x-3">
+                  <Button variant="ghost" asChild className="text-sm font-medium">
+                    <Link to="/auth">Se connecter</Link>
                   </Button>
-                  <Button asChild>
-                    <Link to="/auth">Inscription</Link>
+                  <Button asChild className="text-sm font-medium shadow-md">
+                    <Link to="/auth">Commencer gratuitement</Link>
                   </Button>
                 </div>
 
                 {/* Mobile - Auth */}
                 <div className="md:hidden">
-                  <Button size="sm" asChild>
+                  <Button size="sm" asChild className="shadow-md">
                     <Link to="/auth">Connexion</Link>
                   </Button>
                 </div>
