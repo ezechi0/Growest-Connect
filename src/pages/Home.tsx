@@ -7,10 +7,16 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section professionnel */}
-      <section className="relative bg-gradient-to-b from-primary/5 via-background to-background overflow-hidden">
-        {/* Effet de grille subtil */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8882_1px,transparent_1px),linear-gradient(to_bottom,#8882_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
+      {/* Hero Section spectaculaire */}
+      <section className="relative bg-gradient-to-b from-primary/10 via-accent/5 to-background overflow-hidden">
+        {/* Grille moderne animée */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--primary)/0.05)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--primary)/0.05)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_60%,transparent_120%)]" />
+        
+        {/* Effets lumineux organiques */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/20 to-accent/10 rounded-full filter blur-3xl opacity-70 animate-pulse" style={{ animationDuration: '8s' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-accent/20 to-primary/10 rounded-full filter blur-3xl opacity-70 animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
+        </div>
         
         {/* Bannière Beta */}
         <div className="bg-gradient-to-r from-primary to-accent py-2 relative">
@@ -23,14 +29,24 @@ const Home = () => {
         
         <div className="container mx-auto px-4 py-24 md:py-32 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Badge de confiance */}
-            <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium">
-              <CheckCircle2 className="w-4 h-4 mr-2" />
-              Plateforme sécurisée et vérifiée
-            </Badge>
+            {/* Badge de confiance animé */}
+            <div className="inline-flex items-center gap-2 mb-8 px-5 py-3 bg-gradient-to-r from-primary/10 to-accent/10 border-2 border-primary/20 rounded-full backdrop-blur-sm shadow-lg hover:shadow-xl transition-all group">
+              <div className="relative">
+                <CheckCircle2 className="w-5 h-5 text-primary animate-pulse" />
+                <div className="absolute inset-0 bg-primary/20 rounded-full blur-md group-hover:blur-lg transition-all"></div>
+              </div>
+              <span className="text-sm font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Plateforme certifiée et sécurisée
+              </span>
+            </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-              Connectez vos projets aux meilleurs investisseurs
+            <h1 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-none">
+              <span className="block bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-fade-in">
+                Investissez dans
+              </span>
+              <span className="block bg-gradient-to-r from-accent via-primary to-primary bg-clip-text text-transparent animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                la croissance
+              </span>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed max-w-3xl mx-auto font-light">
@@ -38,31 +54,41 @@ const Home = () => {
               de manière sécurisée, transparente et efficace.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button size="lg" className="text-lg px-8 h-14 shadow-lg hover:shadow-xl transition-all" asChild>
-                <Link to="/auth">
-                  Commencer gratuitement
-                  <ArrowRight className="ml-2 h-5 w-5" />
+            <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+              <Button 
+                size="lg" 
+                className="relative text-lg px-10 h-16 shadow-2xl hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all group overflow-hidden" 
+                asChild
+              >
+                <Link to="/auth" className="relative z-10">
+                  <span className="relative z-10">Commencer gratuitement</span>
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary-light to-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 h-14 border-2" asChild>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="text-lg px-10 h-16 border-2 border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all shadow-lg" 
+                asChild
+              >
                 <Link to="/projects">Explorer les projets</Link>
               </Button>
             </div>
             
-            {/* Stats de confiance */}
-            <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-8 border-t">
-              <div>
-                <div className="text-3xl font-bold text-primary mb-1">10K+</div>
-                <div className="text-sm text-muted-foreground">Utilisateurs actifs</div>
+            {/* Stats de confiance améliorées */}
+            <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto pt-12 border-t-2 border-primary/10">
+              <div className="group hover:scale-110 transition-transform duration-300">
+                <div className="text-4xl md:text-5xl font-black bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2 animate-fade-in">10K+</div>
+                <div className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Utilisateurs actifs</div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-primary mb-1">500+</div>
-                <div className="text-sm text-muted-foreground">Projets financés</div>
+              <div className="group hover:scale-110 transition-transform duration-300" style={{ animationDelay: '0.1s' }}>
+                <div className="text-4xl md:text-5xl font-black bg-gradient-to-br from-accent to-primary bg-clip-text text-transparent mb-2 animate-fade-in">500+</div>
+                <div className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Projets financés</div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-primary mb-1">€2M+</div>
-                <div className="text-sm text-muted-foreground">Investis</div>
+              <div className="group hover:scale-110 transition-transform duration-300" style={{ animationDelay: '0.2s' }}>
+                <div className="text-4xl md:text-5xl font-black bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2 animate-fade-in">€2M+</div>
+                <div className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Investis</div>
               </div>
             </div>
           </div>
@@ -81,108 +107,53 @@ const Home = () => {
         </div>
         
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <Card className="group hover:shadow-xl transition-all duration-300 border-2">
-            <CardHeader>
-              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <Target className="w-7 h-7 text-primary" />
+          <Card className="group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border-2 border-primary/20 hover:border-primary/40 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <CardHeader className="relative z-10">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                <div className="relative w-16 h-16 bg-gradient-to-br from-primary to-primary-light rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                  <Target className="w-8 h-8 text-white" />
+                </div>
               </div>
-              <CardTitle className="text-2xl mb-3">Matching intelligent</CardTitle>
+              <CardTitle className="text-2xl mb-3 group-hover:text-primary transition-colors">Matching intelligent</CardTitle>
               <CardDescription className="text-base leading-relaxed">
                 Notre algorithme de matching met en relation les projets et investisseurs selon leurs critères, secteurs d'activité et objectifs.
               </CardDescription>
             </CardHeader>
           </Card>
 
-          <Card className="group hover:shadow-xl transition-all duration-300 border-2">
-            <CardHeader>
-              <div className="w-14 h-14 bg-accent/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
-                <Shield className="w-7 h-7 text-accent" />
+          <Card className="group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border-2 border-accent/20 hover:border-accent/40 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <CardHeader className="relative z-10">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                <div className="relative w-16 h-16 bg-gradient-to-br from-accent to-accent-light rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
               </div>
-              <CardTitle className="text-2xl mb-3">Vérification rigoureuse</CardTitle>
+              <CardTitle className="text-2xl mb-3 group-hover:text-accent transition-colors">Vérification rigoureuse</CardTitle>
               <CardDescription className="text-base leading-relaxed">
                 Tous les utilisateurs sont vérifiés via notre processus KYC. Investissez et levez des fonds en toute confiance.
               </CardDescription>
             </CardHeader>
           </Card>
 
-          <Card className="group hover:shadow-xl transition-all duration-300 border-2">
-            <CardHeader>
-              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <Lock className="w-7 h-7 text-primary" />
+          <Card className="group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border-2 border-primary/20 hover:border-primary/40 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <CardHeader className="relative z-10">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                <div className="relative w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                  <Lock className="w-8 h-8 text-white" />
+                </div>
               </div>
-              <CardTitle className="text-2xl mb-3">Paiements sécurisés</CardTitle>
+              <CardTitle className="text-2xl mb-3 group-hover:text-primary transition-colors">Paiements sécurisés</CardTitle>
               <CardDescription className="text-base leading-relaxed">
                 Intégration Paystack avec cryptage SSL. Vos transactions sont protégées et conformes aux normes internationales.
               </CardDescription>
             </CardHeader>
           </Card>
-        </div>
-      </section>
-
-      {/* Section témoignages de confiance */}
-      <section className="bg-muted/30 py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Ils nous font confiance
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Des entrepreneurs et investisseurs du monde entier
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <Card className="border-2">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-xl">
-                    A
-                  </div>
-                  <div>
-                    <div className="font-semibold">Amadou Diallo</div>
-                    <div className="text-sm text-muted-foreground">Entrepreneur, Sénégal</div>
-                  </div>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  "Growest Connect m'a permis de lever 150K€ en seulement 2 mois. La plateforme est professionnelle et les investisseurs sont sérieux."
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center text-white font-bold text-xl">
-                    S
-                  </div>
-                  <div>
-                    <div className="font-semibold">Sophie Martin</div>
-                    <div className="text-sm text-muted-foreground">Investisseuse, France</div>
-                  </div>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  "Une plateforme fiable avec des projets vérifiés. J'ai investi dans 5 startups prometteuses grâce à leur système de matching."
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-xl">
-                    K
-                  </div>
-                  <div>
-                    <div className="font-semibold">Kofi Mensah</div>
-                    <div className="text-sm text-muted-foreground">Entrepreneur, Ghana</div>
-                  </div>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  "Interface intuitive, processus transparent. Growest Connect facilite vraiment la mise en relation avec les bons investisseurs."
-                </p>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </section>
 
@@ -250,9 +221,15 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section professionnelle */}
+      {/* CTA Section spectaculaire */}
       <section className="relative bg-gradient-to-br from-primary via-primary to-accent overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff1_1px,transparent_1px),linear-gradient(to_bottom,#fff1_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff2_1px,transparent_1px),linear-gradient(to_bottom,#fff2_1px,transparent_1px)] bg-[size:3rem_3rem]" />
+        
+        {/* Effets lumineux */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full filter blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full filter blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+        </div>
         
         <div className="container mx-auto px-4 py-24 relative z-10">
           <div className="max-w-4xl mx-auto text-center">

@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -143,15 +144,56 @@ const Auth = () => {
     }
   };
 
+  const handleResetPassword = async () => {
+    if (!formData.email) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez entrer votre adresse email",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(formData.email, {
+        redirectTo: `${window.location.origin}/auth`,
+      });
+
+      if (error) {
+        toast({
+          title: "Erreur",
+          description: error.message,
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Email envoyé",
+          description: "Vérifiez votre boîte mail pour réinitialiser votre mot de passe"
+        });
+        setShowResetPassword(false);
+      }
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Une erreur inattendue s'est produite",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Grille de fond moderne */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8882_1px,transparent_1px),linear-gradient(to_bottom,#8882_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_110%)]" />
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Grille de fond avancée */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--primary)/0.03)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--primary)/0.03)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_50%,#000_60%,transparent_120%)]" />
       
-      {/* Cercles décoratifs animés */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full filter blur-3xl opacity-50"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/20 rounded-full filter blur-3xl opacity-50"></div>
+      {/* Effets lumineux organiques animés */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-gradient-to-br from-primary/20 to-accent/10 rounded-full filter blur-3xl opacity-60 animate-pulse" style={{ animationDuration: '4s' }}></div>
+        <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-gradient-to-tl from-accent/20 to-primary/10 rounded-full filter blur-3xl opacity-60 animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full filter blur-2xl"></div>
       </div>
 
       <div className="w-full max-w-md relative z-10">
@@ -163,32 +205,71 @@ const Auth = () => {
           </Link>
         </Button>
 
-        {/* Logo/Title professionnel */}
-        <div className="text-center mb-8 animate-fade-in">
-          <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <TrendingUp className="w-8 h-8 text-white" />
+        {/* Logo/Title spectaculaire */}
+        <div className="text-center mb-10 animate-fade-in">
+          <div className="relative inline-block mb-6">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-3xl blur-xl opacity-60 animate-pulse"></div>
+            <div className="relative w-20 h-20 bg-gradient-to-br from-primary via-primary to-accent rounded-3xl flex items-center justify-center shadow-2xl transform hover:scale-110 transition-transform duration-300">
+              <TrendingUp className="w-10 h-10 text-white animate-pulse" style={{ animationDuration: '3s' }} />
+            </div>
           </div>
-          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-3 bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent tracking-tight">
             Growest Connect
           </h1>
-          <p className="text-muted-foreground text-base">
-            Votre passerelle vers le succès entrepreneurial
-          </p>
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary"></div>
+            <p className="text-muted-foreground text-lg font-medium">
+              Investissez dans la croissance
+            </p>
+            <div className="h-px w-8 bg-gradient-to-l from-transparent to-accent"></div>
+          </div>
         </div>
 
-        <Card className="border-2 shadow-2xl backdrop-blur-sm bg-card/95 hover:shadow-xl transition-all animate-scale-in">
-          <CardHeader className="text-center pb-4">
-            <CardTitle className="text-3xl mb-2">Bienvenue</CardTitle>
-            <CardDescription className="text-base">
-              Connectez-vous ou créez votre compte
+        <Card className="border-2 border-primary/20 shadow-2xl backdrop-blur-xl bg-card/98 hover:shadow-[0_0_50px_rgba(59,130,246,0.15)] transition-all duration-500 animate-scale-in relative overflow-hidden group">
+          {/* Bordure animée au survol */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          <CardHeader className="text-center pb-4 relative z-10">
+            <CardTitle className="text-3xl md:text-4xl mb-2 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">Bienvenue</CardTitle>
+            <CardDescription className="text-base text-muted-foreground">
+              {showResetPassword ? "Réinitialiser votre mot de passe" : "Connectez-vous ou créez votre compte"}
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="signin" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 h-11 bg-muted">
-                <TabsTrigger value="signin" className="text-base font-medium">Connexion</TabsTrigger>
-                <TabsTrigger value="signup" className="text-base font-medium">Inscription</TabsTrigger>
-              </TabsList>
+          <CardContent className="relative z-10">
+            {showResetPassword ? (
+              <div className="space-y-5">
+                <div className="space-y-2">
+                  <Label htmlFor="reset-email" className="text-sm font-medium">Adresse email</Label>
+                  <Input
+                    id="reset-email"
+                    type="email"
+                    placeholder="votre.email@exemple.com"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    className="h-11"
+                  />
+                </div>
+                <Button 
+                  className="w-full h-11 text-base font-medium shadow-md hover:shadow-lg transition-all" 
+                  onClick={handleResetPassword}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Envoi en cours..." : "Envoyer le lien de réinitialisation"}
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  className="w-full" 
+                  onClick={() => setShowResetPassword(false)}
+                >
+                  Retour à la connexion
+                </Button>
+              </div>
+            ) : (
+              <Tabs defaultValue="signin" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 h-12 bg-muted/50 p-1 rounded-xl">
+                  <TabsTrigger value="signin" className="text-base font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-md transition-all">Connexion</TabsTrigger>
+                  <TabsTrigger value="signup" className="text-base font-medium rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-md transition-all">Inscription</TabsTrigger>
+                </TabsList>
               
               {/* Sign In Tab professionnel */}
               <TabsContent value="signin" className="space-y-5 mt-6">
@@ -226,14 +307,18 @@ const Auth = () => {
                   </div>
                 </div>
                 <Button 
-                  className="w-full h-11 text-base font-medium shadow-md hover:shadow-lg transition-all" 
+                  className="w-full h-11 text-base font-medium shadow-md hover:shadow-xl transition-all bg-gradient-to-r from-primary to-primary hover:from-primary-light hover:to-primary" 
                   onClick={handleSignIn}
                   disabled={isLoading}
                 >
                   {isLoading ? "Connexion en cours..." : "Se connecter"}
                 </Button>
                 <div className="text-center">
-                  <Button variant="link" className="text-sm text-muted-foreground hover:text-primary p-0 h-auto">
+                  <Button 
+                    variant="link" 
+                    className="text-sm text-muted-foreground hover:text-primary p-0 h-auto font-medium"
+                    onClick={() => setShowResetPassword(true)}
+                  >
                     Mot de passe oublié ?
                   </Button>
                 </div>
@@ -344,7 +429,7 @@ const Auth = () => {
                 </div>
 
                 <Button 
-                  className="w-full h-11 text-base font-medium shadow-md hover:shadow-lg transition-all" 
+                  className="w-full h-11 text-base font-medium shadow-md hover:shadow-xl transition-all bg-gradient-to-r from-accent to-accent hover:from-accent-light hover:to-accent" 
                   onClick={handleSignUp}
                   disabled={isLoading}
                 >
@@ -352,12 +437,18 @@ const Auth = () => {
                 </Button>
               </TabsContent>
             </Tabs>
+            )}
           </CardContent>
         </Card>
 
-        <div className="text-center mt-6 p-4 bg-muted/30 backdrop-blur-sm rounded-xl border animate-fade-in">
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            Plus de <span className="font-semibold text-primary">10 000 entrepreneurs</span> et investisseurs nous font confiance
+        <div className="text-center mt-8 p-6 bg-gradient-to-br from-muted/40 to-muted/20 backdrop-blur-md rounded-2xl border-2 border-primary/10 animate-fade-in shadow-lg">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-accent rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+          </div>
+          <p className="text-muted-foreground text-sm leading-relaxed font-medium">
+            Plus de <span className="font-bold text-primary">10 000+ entrepreneurs</span> et investisseurs nous font confiance
           </p>
         </div>
       </div>
