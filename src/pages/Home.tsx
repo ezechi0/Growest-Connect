@@ -1,149 +1,273 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Target, Users, Zap } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Target, Shield, Zap, CheckCircle2, TrendingUp, Globe, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
-      {/* Hero Section avec gradient moderne */}
-      <section className="relative hero-gradient">
-        {/* Effet de particules en arrière-plan */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full mix-blend-multiply filter blur-xl animate-float"></div>
-          <div className="absolute top-40 right-10 w-96 h-96 bg-accent/20 rounded-full mix-blend-multiply filter blur-xl animate-float" style={{animationDelay: '2s'}}></div>
-          <div className="absolute -bottom-32 left-1/2 w-80 h-80 bg-primary/10 rounded-full mix-blend-multiply filter blur-xl animate-float" style={{animationDelay: '4s'}}></div>
-        </div>
+    <div className="min-h-screen bg-background">
+      {/* Hero Section professionnel */}
+      <section className="relative bg-gradient-to-b from-primary/5 via-background to-background overflow-hidden">
+        {/* Effet de grille subtil */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8882_1px,transparent_1px),linear-gradient(to_bottom,#8882_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
         
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <div className="max-w-5xl mx-auto text-center text-white">
-            <div className="animate-fade-in">
-              <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight">
-                🚀 Révolutionne Ton <span className="text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text animate-pulse">Future</span>
-                <br />
-                avec <span className="text-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text animate-pulse">Growest</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto font-medium">
-                💫 La plateforme ultra-moderne qui connecte les visionnaires aux investisseurs
-                <br className="hidden md:block" />
-                🌟 Transforme tes rêves en empire, dès maintenant !
-              </p>
-            </div>
+        <div className="container mx-auto px-4 py-24 md:py-32 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Badge de confiance */}
+            <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium">
+              <CheckCircle2 className="w-4 h-4 mr-2" />
+              Plateforme sécurisée et vérifiée
+            </Badge>
             
-            <div className="flex flex-col sm:flex-row gap-8 justify-center animate-slide-up" style={{animationDelay: '0.3s'}}>
-              <Button size="lg" className="text-xl px-12 py-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-yellow-500/50 neo-card animate-pulse" asChild>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
+              Connectez vos projets aux meilleurs investisseurs
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed max-w-3xl mx-auto font-light">
+              Growest Connect est la plateforme de référence qui met en relation entrepreneurs et investisseurs 
+              de manière sécurisée, transparente et efficace.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Button size="lg" className="text-lg px-8 h-14 shadow-lg hover:shadow-xl transition-all" asChild>
                 <Link to="/auth">
-                  🎯 Devenir Légendaire <ArrowRight className="ml-2" />
+                  Commencer gratuitement
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-xl px-12 py-6 border-2 border-white/40 text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 backdrop-blur-lg glass-card font-bold" asChild>
-                <Link to="/projects">🔍 Explorer l'Écosystème</Link>
+              <Button size="lg" variant="outline" className="text-lg px-8 h-14 border-2" asChild>
+                <Link to="/projects">Explorer les projets</Link>
               </Button>
+            </div>
+            
+            {/* Stats de confiance */}
+            <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-8 border-t">
+              <div>
+                <div className="text-3xl font-bold text-primary mb-1">10K+</div>
+                <div className="text-sm text-muted-foreground">Utilisateurs actifs</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-primary mb-1">500+</div>
+                <div className="text-sm text-muted-foreground">Projets financés</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-primary mb-1">€2M+</div>
+                <div className="text-sm text-muted-foreground">Investis</div>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Vague décorative */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 320" className="w-full h-auto">
-            <path fill="#ffffff" fillOpacity="1" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,208C960,213,1056,171,1152,165.3C1248,160,1344,192,1392,208L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-          </svg>
-        </div>
       </section>
 
-      {/* Features Section améliorée */}
-      <section className="container mx-auto px-4 py-20 relative">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Pourquoi Choisir <span className="gradient-text">Growest Connect</span> ?
+      {/* Features Section professionnelle */}
+      <section className="container mx-auto px-4 py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Une plateforme pensée pour votre réussite
           </h2>
-          <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-            Une solution complète pour connecter porteurs de projets et investisseurs de manière sécurisée et efficace
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Des fonctionnalités avancées pour faciliter vos échanges et sécuriser vos investissements
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8 relative z-10">
-          <Card className="text-center hover-lift neo-card border-0 shadow-2xl animate-scale-in glow-effect" style={{animationDelay: '0.2s'}}>
-            <CardHeader className="pb-4">
-              <div className="w-20 h-20 primary-gradient rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl animate-float pulse-glow">
-                <Target className="w-10 h-10 text-white" />
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <Card className="group hover:shadow-xl transition-all duration-300 border-2">
+            <CardHeader>
+              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                <Target className="w-7 h-7 text-primary" />
               </div>
-              <CardTitle className="text-2xl mb-4 gradient-text">🎯 Matching IA Ultra-Précis</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription className="text-base leading-relaxed font-medium">
-                Notre IA révolutionnaire connecte automatiquement tes projets aux investisseurs parfaits. 
-                Résultats garantis en moins de 24h ! 🚀
+              <CardTitle className="text-2xl mb-3">Matching intelligent</CardTitle>
+              <CardDescription className="text-base leading-relaxed">
+                Notre algorithme de matching met en relation les projets et investisseurs selon leurs critères, secteurs d'activité et objectifs.
               </CardDescription>
-            </CardContent>
+            </CardHeader>
           </Card>
 
-          <Card className="text-center hover-lift neo-card border-0 shadow-2xl animate-scale-in glow-effect" style={{animationDelay: '0.4s'}}>
-            <CardHeader className="pb-4">
-              <div className="w-20 h-20 accent-gradient rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl animate-float pulse-glow">
-                <Users className="w-10 h-10 text-white" />
+          <Card className="group hover:shadow-xl transition-all duration-300 border-2">
+            <CardHeader>
+              <div className="w-14 h-14 bg-accent/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+                <Shield className="w-7 h-7 text-accent" />
               </div>
-              <CardTitle className="text-2xl mb-4 gradient-text">🛡️ Réseau Elite Vérifié</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription className="text-base leading-relaxed font-medium">
-                Rejoins une communauté exclusive d'entrepreneurs et d'investisseurs vérifiés. 
-                100% sécurisé, 0% arnaque ! 🔒
+              <CardTitle className="text-2xl mb-3">Vérification rigoureuse</CardTitle>
+              <CardDescription className="text-base leading-relaxed">
+                Tous les utilisateurs sont vérifiés via notre processus KYC. Investissez et levez des fonds en toute confiance.
               </CardDescription>
-            </CardContent>
+            </CardHeader>
           </Card>
 
-          <Card className="text-center hover-lift neo-card border-0 shadow-2xl animate-scale-in glow-effect" style={{animationDelay: '0.6s'}}>
-            <CardHeader className="pb-4">
-              <div className="w-20 h-20 primary-gradient rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl animate-float pulse-glow">
-                <Zap className="w-10 h-10 text-white" />
+          <Card className="group hover:shadow-xl transition-all duration-300 border-2">
+            <CardHeader>
+              <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                <Lock className="w-7 h-7 text-primary" />
               </div>
-              <CardTitle className="text-2xl mb-4 gradient-text">⚡ Sécurité Niveau NASA</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription className="text-base leading-relaxed font-medium">
-                Cryptage militaire, paiements ultra-sécurisés et protection maximale de tes données. 
-                Ta réussite, notre obsession ! 🛡️
+              <CardTitle className="text-2xl mb-3">Paiements sécurisés</CardTitle>
+              <CardDescription className="text-base leading-relaxed">
+                Intégration Paystack avec cryptage SSL. Vos transactions sont protégées et conformes aux normes internationales.
               </CardDescription>
-            </CardContent>
+            </CardHeader>
           </Card>
         </div>
-
-        {/* Cercles décoratifs */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-accent/10 to-primary/10 rounded-full filter blur-3xl"></div>
       </section>
 
-      {/* CTA Section moderne */}
-      <section className="relative overflow-hidden">
-        <div className="hero-gradient py-20">
-          {/* Effets de fond animés */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-0 left-1/4 w-64 h-64 bg-white rounded-full filter blur-3xl animate-pulse-glow"></div>
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/50 rounded-full filter blur-3xl animate-float"></div>
+      {/* Section témoignages de confiance */}
+      <section className="bg-muted/30 py-24">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Ils nous font confiance
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Des entrepreneurs et investisseurs du monde entier
+            </p>
           </div>
-          
-          <div className="container mx-auto px-4 text-center relative z-10">
-            <div className="max-w-4xl mx-auto animate-bounce-in">
-              <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
-                🔥 Prêt à Devenir la <span className="text-transparent bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-500 bg-clip-text animate-pulse">Légende</span> 
-                <br />
-                de Demain ? 🌟
-              </h2>
-              <p className="text-white/90 text-xl mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
-                💎 Rejoins + de 10,000 visionnaires qui utilisent Growest Connect pour bâtir l'empire africain de demain !
-                <br />
-                🚀 Ton succès commence ICI, MAINTENANT !
-              </p>
-              <div className="space-y-6">
-                <Button size="lg" className="text-2xl px-16 py-6 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-black hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-purple-500/50 neo-card animate-bounce" asChild>
-                  <Link to="/auth">
-                    🎯 REJOINDRE L'ÉLITE GRATUIT
-                  </Link>
-                </Button>
-                <p className="text-white/80 text-lg font-bold">💫 Gratuit à vie • Pas de CB • Résultats garantis 💫</p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <Card className="border-2">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-xl">
+                    A
+                  </div>
+                  <div>
+                    <div className="font-semibold">Amadou Diallo</div>
+                    <div className="text-sm text-muted-foreground">Entrepreneur, Sénégal</div>
+                  </div>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  "Growest Connect m'a permis de lever 150K€ en seulement 2 mois. La plateforme est professionnelle et les investisseurs sont sérieux."
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center text-white font-bold text-xl">
+                    S
+                  </div>
+                  <div>
+                    <div className="font-semibold">Sophie Martin</div>
+                    <div className="text-sm text-muted-foreground">Investisseuse, France</div>
+                  </div>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  "Une plateforme fiable avec des projets vérifiés. J'ai investi dans 5 startups prometteuses grâce à leur système de matching."
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-xl">
+                    K
+                  </div>
+                  <div>
+                    <div className="font-semibold">Kofi Mensah</div>
+                    <div className="text-sm text-muted-foreground">Entrepreneur, Ghana</div>
+                  </div>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  "Interface intuitive, processus transparent. Growest Connect facilite vraiment la mise en relation avec les bons investisseurs."
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Section sécurité et confiance */}
+      <section className="container mx-auto px-4 py-24">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Votre sécurité, notre priorité
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Des standards de sécurité de niveau bancaire
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="flex gap-4 p-6 rounded-xl border-2 bg-card hover:shadow-lg transition-shadow">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Lock className="w-6 h-6 text-primary" />
+                </div>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-2">Cryptage SSL/TLS</h3>
+                <p className="text-muted-foreground">Toutes vos données sont chiffrées de bout en bout avec les derniers standards de sécurité.</p>
               </div>
             </div>
+
+            <div className="flex gap-4 p-6 rounded-xl border-2 bg-card hover:shadow-lg transition-shadow">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                  <CheckCircle2 className="w-6 h-6 text-accent" />
+                </div>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-2">Vérification KYC</h3>
+                <p className="text-muted-foreground">Processus de vérification d'identité rigoureux pour garantir l'authenticité de tous les profils.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4 p-6 rounded-xl border-2 bg-card hover:shadow-lg transition-shadow">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Shield className="w-6 h-6 text-primary" />
+                </div>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-2">Conformité RGPD</h3>
+                <p className="text-muted-foreground">Respect total de vos données personnelles selon les normes européennes les plus strictes.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4 p-6 rounded-xl border-2 bg-card hover:shadow-lg transition-shadow">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                  <Globe className="w-6 h-6 text-accent" />
+                </div>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-2">Paiements Paystack</h3>
+                <p className="text-muted-foreground">Infrastructure de paiement certifiée PCI-DSS pour des transactions 100% sécurisées.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section professionnelle */}
+      <section className="relative bg-gradient-to-br from-primary via-primary to-accent overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#fff1_1px,transparent_1px),linear-gradient(to_bottom,#fff1_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        
+        <div className="container mx-auto px-4 py-24 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              Prêt à transformer votre vision en réalité ?
+            </h2>
+            <p className="text-white/90 text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
+              Rejoignez des milliers d'entrepreneurs et investisseurs qui utilisent Growest Connect 
+              pour créer des partenariats durables.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="text-lg px-10 h-14 bg-white text-primary hover:bg-white/90 shadow-xl" asChild>
+                <Link to="/auth">
+                  Créer un compte gratuit
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" className="text-lg px-10 h-14 border-2 border-white text-white hover:bg-white/10" asChild>
+                <Link to="/mission">En savoir plus</Link>
+              </Button>
+            </div>
+            <p className="text-white/70 text-sm mt-8">
+              Aucune carte bancaire requise • Accès gratuit • Configuration en 2 minutes
+            </p>
           </div>
         </div>
       </section>
